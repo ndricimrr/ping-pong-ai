@@ -36,3 +36,4 @@ dispatchPong({ message: "Pong" });
 // TODO: Later on Consider Ping Pong between Iframes. With Post Messages.
 // TODO: Later on Consider throwing a ball in a grid of Iframes, and it bounces as if it were in a full large rectangle/circle using postMessage API if possible
 // TODO: Later on Consider Simple Ping pong between WebComponents with Communication BUS
+// TODO: Train Simple models on Cloud

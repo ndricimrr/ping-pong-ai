@@ -1,13 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <body>
-    This is only the beggining :)
-  </body>
   <script src="main.js"></script>
   <script src="player.js"></script>
+  <script src="logic.js"></script>
 
   <script>
     const player = new Player("John");
     player.displayPlayerInfo();
   </script>
+  <style>
+    .brick {
+      height: 100px;
+      width: 20px;
+      background-color: black;
+      position: relative;
+      top: 0;
+      transition: top 0.2s ease; /* Adding smooth transition */
+    }
+  </style>
+
+  <body>
+    This is only the beggining :)
+
+    <div class="brick"></div>
+    <div style="right: 10px; position: absolute" class="brick"></div>
+
+    <div style="margin-top: 400px; margin-left: 30%">
+      <div style="display: inline">
+        <button onclick="moveUp(0)">Move Up</button>
+        <button onclick="moveDown(0)">Move Down</button>
+      </div>
+      <div style="display: inline; margin-left: 100px">
+        <button onclick="moveUp(1)">Move Up</button>
+        <button onclick="moveDown(1)">Move Down</button>
+      </div>
+    </div>
+  </body>
 </html>
