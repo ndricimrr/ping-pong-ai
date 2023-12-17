@@ -32,3 +32,6 @@ function dispatchPong(data) {
 
 dispatchPing({ message: "Ping" });
 dispatchPong({ message: "Pong" });
+
+// TODO: Later on Consider Ping Pong between Iframes. With Post Messages.
+// TODO: Later on Consider Simple Ping pong between WebComponents with Communication BUS
