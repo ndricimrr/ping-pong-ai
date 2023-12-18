@@ -67,12 +67,22 @@ var debouncedMoveDown = moveDown;
 var debouncedMoveUp = moveUp;
 
 window.addEventListener("keydown", function (event) {
+  console.log(event, event.key);
   switch (event.key) {
+    case "w":
+      moveBallUp();
+      break;
+    case "s":
+      moveBallDown();
+      break;
     case "ArrowDown":
       debouncedMoveDown(1);
       break;
     case "ArrowUp":
       debouncedMoveUp(1);
+      break;
+
+    default:
       break;
   }
 });
@@ -110,3 +120,28 @@ window.addEventListener("keyup", function (event) {
       break;
   }
 });
+
+function moveBallDown() {
+  let ball = document.getElementById("ball");
+  const currentPosition = parseInt(window.getComputedStyle(ball).top);
+
+  if (boundariesExceeded(currentPosition, true, ball)) {
+    return;
+  }
+  // -100 because in the HTML coordinate system + is downwards and - is upwards
+  requestAnimationFrame(() => {
+    ball.style.top = currentPosition + MOVE_PIXEL_COUNT + "px";
+  });
+}
+
+function moveBallUp() {
+  let ball = document.getElementById("ball");
+  const currentPosition = parseInt(window.getComputedStyle(ball).top);
+  if (boundariesExceeded(currentPosition, false, ball)) {
+    return;
+  }
+  // -100 because in the HTML coordinate system + is downwards and - is upwards
+  requestAnimationFrame(() => {
+    ball.style.top = currentPosition - MOVE_PIXEL_COUNT + "px";
+  });
+}
