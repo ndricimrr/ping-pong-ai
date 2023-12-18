@@ -15,14 +15,17 @@
       background-color: black;
       position: absolute;
       top: 50%;
-      margin-top: -15%; /* Half of the element's height */
-      transition: top 0.05s ease; /* Adding smooth transition */
+      transform: translateY(-50%);
+      transition: top 0.3s ease; /* Adding smooth transition */
     }
 
     .gameCanvas {
       width: 50vw;
       height: 30vw;
       border: 1px solid gray;
+      border-top: 10px solid black;
+      border-bottom: 10px solid black;
+
       position: relative;
     }
   </style>
@@ -35,7 +38,7 @@
       <div style="left: 97%" class="brick"></div>
     </div>
 
-    <!-- <div style="margin-top: 200px; margin-left: 30%">
+    <div style="margin-top: 200px; margin-left: 30%">
       <div style="display: inline">
         <button onclick="moveUp(0)">Move Up</button>
         <button onclick="debouncedMoveDown(0)">Move Down</button>
@@ -44,6 +47,6 @@
         <button onclick="moveUp(1)">Move Up</button>
         <button onclick="debouncedMoveDown(1)">Move Down</button>
       </div>
-    </div> -->
+    </div>
   </body>
 </html>
