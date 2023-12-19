@@ -2,6 +2,9 @@ var MOVE_PIXEL_COUNT = 50;
 
 var BALL_MOVE_PIXEL_COUNT = 40;
 
+var BALL_MOVE_PIXEL_COUNT_L_R = 40;
+var BALL_MOVE_PIXEL_COUNT_U_D = 40;
+
 var isAnimating1 = false;
 var isAnimating2 = false;
 
@@ -194,6 +197,7 @@ function moveBallDown() {
   });
 }
 
+// KEEP THIS ONE ONLY : BOUNCE UP/DOWN
 function moveBallUp() {
   let ball = document.getElementById("ball");
   const currentPosition = parseInt(window.getComputedStyle(ball).top);
@@ -202,12 +206,69 @@ function moveBallUp() {
     currentPosition >= ball.parentElement.clientHeight - ball.clientHeight
   ) {
     // Reverse the direction when reaching the top or bottom boundary
-    BALL_MOVE_PIXEL_COUNT *= -1;
+    BALL_MOVE_PIXEL_COUNT_U_D *= -1;
   }
 
-  ball.style.top = currentPosition - BALL_MOVE_PIXEL_COUNT + "px";
+  ball.style.top = currentPosition - BALL_MOVE_PIXEL_COUNT_U_D + "px";
 
   requestAnimationFrame(moveBallUp);
+}
+
+// KEEP THIS ONE ONLY: BOUNCE LEFT then RIGHT
+function moveBallLeft() {
+  let ball = document.getElementById("ball");
+  const currentPosition = parseInt(window.getComputedStyle(ball).left);
+  if (
+    currentPosition <= 0 ||
+    currentPosition >= ball.parentElement.clientWidth - ball.clientWidth
+  ) {
+    // Reverse the direction when reaching the top or bottom boundary
+    BALL_MOVE_PIXEL_COUNT_L_R *= -1;
+  }
+
+  ball.style.left = currentPosition - BALL_MOVE_PIXEL_COUNT_L_R + "px";
+
+  requestAnimationFrame(moveBallLeft);
+}
+
+function moveBallDiagonalLeftUp() {
+  let ball = document.getElementById("ball");
+  const currentPositionTop = parseInt(window.getComputedStyle(ball).top);
+  const currentPositionLeft = parseInt(window.getComputedStyle(ball).left);
+
+  // if (
+  //   currentPositionTop <= 0 ||
+  //   currentPositionTop >= ball.parentElement.clientHeight - ball.clientHeight
+  // ) {
+  //   // Reverse the direction when reaching the top or bottom boundary
+  //   BALL_MOVE_PIXEL_COUNT *= -1;
+  // }
+
+  // if (
+  //   currentPositionLeft <= 0 ||
+  //   currentPositionLeft >= ball.parentElement.clientWidth - ball.clientWidth
+  // ) {
+  //   // Reverse the direction when reaching the top or bottom boundary
+  //   BALL_MOVE_PIXEL_COUNT *= -1;
+  // }
+
+  // ball.style.left = currentPosition - BALL_MOVE_PIXEL_COUNT + "px";
+
+  // ball.style.top = currentPosition - BALL_MOVE_PIXEL_COUNT + "px";
+
+  requestAnimationFrame(() => {
+    // TOP Left
+    if (currentPositionTop <= 0) {
+      BALL_MOVE_PIXEL_COUNT_L_R *= -1;
+    }
+    // TOP Left
+    // else if (
+    //   currentPositionTop >=
+    //   ball.parentElement.clientHeight - ball.clientHeight
+    // ) {
+    moveBallUp();
+    moveBallLeft();
+  });
 }
 
 function moveBallUpDown() {
@@ -215,30 +276,10 @@ function moveBallUpDown() {
   const currentPosition = parseInt(window.getComputedStyle(ball).top);
   if (boundariesExceeded(currentPosition, "down", ball)) {
     BALL_MOVE_PIXEL_COUNT *= -1;
-    // let count = 0;
-    // const intervalId = setInterval(() => {
-    //   moveBallDown();
-    //   if (count > 40) {
-    //     clearInterval(intervalId);
-    //   }
-    //   count++;
-    // }, 100);
   }
   // -100 because in the HTML coordinate system + is downwards and - is upwards
   requestAnimationFrame(() => {
     ball.style.top = currentPosition - BALL_MOVE_PIXEL_COUNT + "px";
-  });
-}
-
-function moveBallLeft() {
-  let ball = document.getElementById("ball");
-  const currentPosition = parseInt(window.getComputedStyle(ball).left);
-  if (boundariesExceeded(currentPosition, "left", ball)) {
-    return;
-  }
-  // -100 because in the HTML coordinate system + is downwards and - is upwards
-  requestAnimationFrame(() => {
-    ball.style.left = currentPosition - BALL_MOVE_PIXEL_COUNT + "px";
   });
 }
 
@@ -263,24 +304,6 @@ function moveBallDiagonalRight() {
   // -100 because in the HTML coordinate system + is downwards and - is upwards
   requestAnimationFrame(() => {
     ball.style.left = currentPosition + BALL_MOVE_PIXEL_COUNT + "px";
-  });
-}
-
-function moveBallDiagonalLeftUp() {
-  let ball = document.getElementById("ball");
-  const currentPositionLeft = parseInt(window.getComputedStyle(ball).left);
-  const currentPositionTop = parseInt(window.getComputedStyle(ball).top);
-
-  if (
-    boundariesExceeded(currentPositionLeft, "left", ball) ||
-    boundariesExceeded(currentPositionTop, "up", ball)
-  ) {
-    return;
-  }
-  // -100 because in the HTML coordinate system + is downwards and - is upwards
-  requestAnimationFrame(() => {
-    ball.style.left = currentPositionLeft - BALL_MOVE_PIXEL_COUNT + "px";
-    ball.style.top = currentPositionTop - BALL_MOVE_PIXEL_COUNT + "px";
   });
 }
 
