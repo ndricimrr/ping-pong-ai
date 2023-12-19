@@ -35,7 +35,7 @@
       left: 50%;
       position: absolute;
       background-color: black;
-      border-radius: 20px;
+      /* border-radius: 20px; */
       transition: 0.3s ease; /* Adding smooth transition */
       /* transition: left 0.3s ease; Adding smooth transition */
     }
@@ -45,9 +45,9 @@
     <h1>Ping Pong vs AI</h1>
 
     <div class="gameCanvas">
-      <div class="brick"></div>
+      <div id="player1" class="brick"></div>
       <div id="ball" class="ball"></div>
-      <div style="left: 97%" class="brick"></div>
+      <div style="left: 97%" id="player2" class="brick"></div>
     </div>
 
     <div style="margin-top: 200px; margin-left: 30%">
