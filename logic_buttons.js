@@ -1,4 +1,4 @@
-var MOVE_PIXEL_COUNT = 100;
+var MOVE_PIXEL_COUNT = 50;
 
 var BALL_MOVE_PIXEL_COUNT = 40;
 
@@ -8,7 +8,7 @@ var isAnimating2 = false;
 function moveUp(index) {
   var player1Brick = document.getElementsByClassName("brick")[index];
   const currentPosition = parseInt(window.getComputedStyle(player1Brick).top);
-  if (boundariesExceeded(currentPosition, "up", player1Brick)) {
+  if (boundariesExceeded(currentPosition, "upPlayer2", player1Brick)) {
     return;
   }
   // -100 because in the HTML coordinate system + is downwards and - is upwards
@@ -21,7 +21,7 @@ function moveDown(index) {
   var player1Brick = document.getElementsByClassName("brick")[index];
   const currentPosition = parseInt(window.getComputedStyle(player1Brick).top);
 
-  if (boundariesExceeded(currentPosition, "down", player1Brick)) {
+  if (boundariesExceeded(currentPosition, "downPlayer2", player1Brick)) {
     return;
   }
   // -100 because in the HTML coordinate system + is downwards and - is upwards
@@ -37,20 +37,34 @@ function boundariesExceeded(currentPosition, direction, brickElement) {
   console.log("currentPosition:", currentPosition);
   console.log("---");
 
+  if (
+    direction === "upPlayer2" &&
+    currentPosition - MOVE_PIXEL_COUNT * 1.4 < 0
+  ) {
+    return true;
+  }
+
+  if (
+    direction === "downPlayer2" &&
+    currentPosition + MOVE_PIXEL_COUNT * 1.4 > gameCanvas.clientHeight
+  ) {
+    return true;
+  }
+
   if (direction === "up" && currentPosition - BALL_MOVE_PIXEL_COUNT < 0) {
     return true;
   }
 
   if (
     direction === "down" &&
-    currentPosition + BALL_MOVE_PIXEL_COUNT > gameCanvas.clientHeight
+    currentPosition + 2 * BALL_MOVE_PIXEL_COUNT > gameCanvas.clientHeight
   ) {
     return true;
   }
 
   if (
     direction === "right" &&
-    currentPosition + BALL_MOVE_PIXEL_COUNT > gameCanvas.clientWidth
+    currentPosition + 2 * BALL_MOVE_PIXEL_COUNT > gameCanvas.clientWidth
   ) {
     return true;
   }
@@ -125,6 +139,7 @@ window.addEventListener("keydown", function (event) {
 });
 
 window.addEventListener("keyup", function (event) {
+  // return;
   switch (event.key) {
     case "ArrowDown":
       let brick = document.getElementsByClassName("brick")[1];
@@ -134,7 +149,7 @@ window.addEventListener("keyup", function (event) {
       const childHeight = brick.clientHeight;
 
       const cp = parseInt(window.getComputedStyle(brick).top);
-      if (boundariesExceeded(cp, "down", brick)) {
+      if (boundariesExceeded(cp, "downPlayer2", brick)) {
         requestAnimationFrame(() => {
           brick.style.top = `${parentHeight - childHeight / 2}px`;
         });
@@ -149,7 +164,7 @@ window.addEventListener("keyup", function (event) {
       const childHeight1 = brick1.clientHeight;
 
       const cp1 = parseInt(window.getComputedStyle(brick1).top);
-      if (boundariesExceeded(cp1, "up", brick1)) {
+      if (boundariesExceeded(cp1, "upPlayer2", brick1)) {
         requestAnimationFrame(() => {
           brick1.style.top = childHeight1 / 2 + "px";
         });
@@ -163,6 +178,14 @@ function moveBallDown() {
   const currentPosition = parseInt(window.getComputedStyle(ball).top);
 
   if (boundariesExceeded(currentPosition, "down", ball)) {
+    let count = 0;
+    const intervalId = setInterval(() => {
+      moveBallUp();
+      if (count > 40) {
+        clearInterval(intervalId);
+      }
+      count++;
+    }, 100);
     return;
   }
   // -100 because in the HTML coordinate system + is downwards and - is upwards
@@ -174,8 +197,32 @@ function moveBallDown() {
 function moveBallUp() {
   let ball = document.getElementById("ball");
   const currentPosition = parseInt(window.getComputedStyle(ball).top);
-  if (boundariesExceeded(currentPosition, "up", ball)) {
-    return;
+  if (
+    currentPosition <= 0 ||
+    currentPosition >= ball.parentElement.clientHeight - ball.clientHeight
+  ) {
+    // Reverse the direction when reaching the top or bottom boundary
+    BALL_MOVE_PIXEL_COUNT *= -1;
+  }
+
+  ball.style.top = currentPosition - BALL_MOVE_PIXEL_COUNT + "px";
+
+  requestAnimationFrame(moveBallUp);
+}
+
+function moveBallUpDown() {
+  let ball = document.getElementById("ball");
+  const currentPosition = parseInt(window.getComputedStyle(ball).top);
+  if (boundariesExceeded(currentPosition, "down", ball)) {
+    BALL_MOVE_PIXEL_COUNT *= -1;
+    // let count = 0;
+    // const intervalId = setInterval(() => {
+    //   moveBallDown();
+    //   if (count > 40) {
+    //     clearInterval(intervalId);
+    //   }
+    //   count++;
+    // }, 100);
   }
   // -100 because in the HTML coordinate system + is downwards and - is upwards
   requestAnimationFrame(() => {

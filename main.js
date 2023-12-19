@@ -47,3 +47,6 @@ dispatchPong({ message: "Pong" });
  * TODO: Keep this repo with DOM elements manipulation here. Make it as smooth as possible, and keep it 2 player game as its easier.
  *         Create another REPO where you create this logic with canvas manipulation since its faster, smoother
  */
+
+// TODO: Add a listener that listens every x miliseconds to check if certain rectangles have intersections
+// Maybe this is a more accurate way and less race conditions
