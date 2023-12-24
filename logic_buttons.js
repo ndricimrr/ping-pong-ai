@@ -281,33 +281,7 @@ function moveBallDiagonalLeftUp() {
   const player2Top = parseInt(window.getComputedStyle(player2).top);
   const player2Left = parseInt(window.getComputedStyle(player2).left);
 
-  // if (
-  //   currentPositionTop <= 0 ||
-  //   currentPositionTop >= ball.parentElement.clientHeight - ball.clientHeight
-  // ) {
-  //   // Reverse the direction when reaching the top or bottom boundary
-  //   BALL_MOVE_PIXEL_COUNT *= -1;
-  // }
-
-  // if (
-  //   currentPositionLeft <= 0 ||
-  //   currentPositionLeft >= ball.parentElement.clientWidth - ball.clientWidth
-  // ) {
-  //   // Reverse the direction when reaching the top or bottom boundary
-  //   BALL_MOVE_PIXEL_COUNT *= -1;
-  // }
-
-  // ball.style.left = currentPosition - BALL_MOVE_PIXEL_COUNT + "px";
-
-  // ball.style.top = currentPosition - BALL_MOVE_PIXEL_COUNT + "px";
-
   requestAnimationFrame(() => {
-    // TOP Left
-    // if (currentPositionTop <= 0) {
-    //   // BALL_MOVE_PIXEL_COUNT_L_R *= -1;
-    //   console.log("Ball 0:", currentPositionLeft, ball.clientWidth);
-    //   console.log("Player 0", player2Top, player2Left);
-    // }
     console.log("Ball 1:", currentPositionLeft, ball.clientWidth);
     console.log("Player 1", player2Top, player2Left);
     if (
@@ -320,11 +294,6 @@ function moveBallDiagonalLeftUp() {
       console.log("Player", player2Top, player2Left);
       BALL_MOVE_PIXEL_COUNT_L_R *= -1;
     }
-    // TOP Left
-    // else if (
-    //   currentPositionTop >=
-    //   ball.parentElement.clientHeight - ball.clientHeight
-    // ) {
     moveBallUp();
     moveBallLeft();
   });
