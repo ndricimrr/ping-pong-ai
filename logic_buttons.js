@@ -111,27 +111,27 @@ window.addEventListener("keydown", function (event) {
     case "s":
       moveBallDown();
       break;
-    case "a":
-      moveBallLeft();
-      break;
-    case "d":
-      moveBallRight();
-      break;
+    // case "a":
+    //   moveBallLeft();
+    //   break;
+    // case "d":
+    //   moveBallRight();
+    //   break;
     case "g":
       startGame();
       break;
-    case "q":
-      moveBallDiagonalLeftUp();
-      break;
-    case "e":
-      moveBallDiagonalRightUp();
-      break;
-    case "z":
-      moveBallDiagonalLeftDown();
-      break;
-    case "c":
-      moveBallDiagonalRightDown();
-      break;
+    // case "q":
+    //   moveBallDiagonalLeftUp();
+    //   break;
+    // case "e":
+    //   moveBallDiagonalRightUp();
+    //   break;
+    // case "z":
+    //   moveBallDiagonalLeftDown();
+    //   break;
+    // case "c":
+    //   moveBallDiagonalRightDown();
+    //   break;
 
     case "ArrowDown":
       debouncedMoveDown(1);
@@ -221,14 +221,19 @@ function moveBallUp() {
   const player2Top = parseInt(window.getComputedStyle(player2).top);
   const player2Left = parseInt(window.getComputedStyle(player2).left);
 
+  // if ball touches player 2
   if (
-    !(
-      currentPositionTop - ball.clientHeight - player2Top >= 0 ||
-      player2Top - ball.clientHeight - currentPositionTop >= 0
+    // ball is in between player 2 horizontal plane
+    (
+      currentPositionTop - ball.clientHeight - player2Top < ball.clientHeight/2 &&
+      player2Top - ball.clientHeight - currentPositionTop < ball.clientHeight/2
     ) &&
+    // ball touches player 2
     currentPositionLeft + ball.clientWidth - player2Left >= 0
   ) {
-    player2.style.backgroundColor = "rgba(255, 0, 0, 0.333)";
+    // player2.style.backgroundColor = "rgba(255, 0, 0, 0.333)";
+    player2.style.backgroundColor = "green";
+
     BALL_MOVE_PIXEL_COUNT_L_R *= -1;
   } else {
     if (player2.style.backgroundColor !== "black") {
@@ -272,6 +277,7 @@ function moveBallLeft() {
   requestAnimationFrame(moveBallLeft);
 }
 
+// keep this
 function moveBallDiagonalLeftUp() {
   let ball = document.getElementById("ball");
   const currentPositionTop = parseInt(window.getComputedStyle(ball).top);
@@ -332,59 +338,5 @@ function moveBallDiagonalRight() {
   // -100 because in the HTML coordinate system + is downwards and - is upwards
   requestAnimationFrame(() => {
     ball.style.left = currentPosition + BALL_MOVE_PIXEL_COUNT + "px";
-  });
-}
-
-function moveBallDiagonalLeftDown() {
-  let ball = document.getElementById("ball");
-  const currentPositionLeft = parseInt(window.getComputedStyle(ball).left);
-  const currentPositionTop = parseInt(window.getComputedStyle(ball).top);
-
-  if (
-    boundariesExceeded(currentPositionLeft, "left", ball) ||
-    boundariesExceeded(currentPositionTop, "down", ball)
-  ) {
-    return;
-  }
-  // -100 because in the HTML coordinate system + is downwards and - is upwards
-  requestAnimationFrame(() => {
-    ball.style.left = currentPositionLeft - BALL_MOVE_PIXEL_COUNT + "px";
-    ball.style.top = currentPositionTop + BALL_MOVE_PIXEL_COUNT + "px";
-  });
-}
-
-function moveBallDiagonalRightUp() {
-  let ball = document.getElementById("ball");
-  const currentPositionLeft = parseInt(window.getComputedStyle(ball).left);
-  const currentPositionTop = parseInt(window.getComputedStyle(ball).top);
-
-  if (
-    boundariesExceeded(currentPositionLeft, "right", ball) ||
-    boundariesExceeded(currentPositionTop, "up", ball)
-  ) {
-    return;
-  }
-  // -100 because in the HTML coordinate system + is downwards and - is upwards
-  requestAnimationFrame(() => {
-    ball.style.left = currentPositionLeft + BALL_MOVE_PIXEL_COUNT + "px";
-    ball.style.top = currentPositionTop - BALL_MOVE_PIXEL_COUNT + "px";
-  });
-}
-
-function moveBallDiagonalRightDown() {
-  let ball = document.getElementById("ball");
-  const currentPositionLeft = parseInt(window.getComputedStyle(ball).left);
-  const currentPositionTop = parseInt(window.getComputedStyle(ball).top);
-
-  if (
-    boundariesExceeded(currentPositionLeft, "right", ball) ||
-    boundariesExceeded(currentPositionTop, "down", ball)
-  ) {
-    return;
-  }
-  // -100 because in the HTML coordinate system + is downwards and - is upwards
-  requestAnimationFrame(() => {
-    ball.style.left = currentPositionLeft + BALL_MOVE_PIXEL_COUNT + "px";
-    ball.style.top = currentPositionTop + BALL_MOVE_PIXEL_COUNT + "px";
   });
 }
