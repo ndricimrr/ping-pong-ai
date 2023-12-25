@@ -12,6 +12,11 @@ var shouldFreezeBall = true;
 var isAnimating1 = false;
 var isAnimating2 = false;
 
+/**
+ * Moves player with index up an MOVE_PIXEL_COUNT amount of pixels
+ * @param {*} index player index
+ * @returns 
+ */
 function moveUp(index) {
   var player1Brick = document.getElementsByClassName("brick")[index];
   const currentPosition = parseInt(window.getComputedStyle(player1Brick).top);
