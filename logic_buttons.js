@@ -2,7 +2,7 @@ var MOVE_PIXEL_COUNT = 50;
 
 var BALL_MOVE_PIXEL_COUNT = 40;
 
-var BALL_MOVE_PIXEL_COUNT_L_R = 80;
+var BALL_MOVE_PIXEL_COUNT_L_R = 100;
 var BALL_MOVE_PIXEL_COUNT_U_D = BALL_MOVE_PIXEL_COUNT_L_R;
 
 var BALL_MOVE_PIXEL_COUNT = BALL_MOVE_PIXEL_COUNT_L_R;
@@ -44,6 +44,8 @@ function boundariesExceeded(currentPosition, direction, brickElement) {
   console.log("currentPosition:", currentPosition);
   console.log("---");
 
+  // Player 2 Boundary check
+
   if (
     direction === "upPlayer2" &&
     currentPosition - MOVE_PIXEL_COUNT * 1.4 < 0
@@ -57,6 +59,23 @@ function boundariesExceeded(currentPosition, direction, brickElement) {
   ) {
     return true;
   }
+
+  // Player 1 Boundary check
+  if (
+    direction === "upPlayer1" &&
+    currentPosition - MOVE_PIXEL_COUNT * 1.4 < 0
+  ) {
+    return true;
+  }
+
+  if (
+    direction === "downPlayer1" &&
+    currentPosition + MOVE_PIXEL_COUNT * 1.4 > gameCanvas.clientHeight
+  ) {
+    return true;
+  }
+
+
 
   if (direction === "up" && currentPosition - BALL_MOVE_PIXEL_COUNT < 0) {
     return true;
@@ -108,10 +127,10 @@ var debouncedMoveUp = moveUp;
 window.addEventListener("keydown", function (event) {
   switch (event.key) {
     case "w":
-      moveBallUp();
+      debouncedMoveUp(0);
       break;
     case "s":
-      moveBallDown();
+      debouncedMoveDown(0);
       break;
     // case "a":
     //   moveBallLeft();
@@ -175,6 +194,35 @@ window.addEventListener("keyup", function (event) {
       if (boundariesExceeded(cp1, "upPlayer2", brick1)) {
         requestAnimationFrame(() => {
           brick1.style.top = childHeight1 / 2 + "px";
+        });
+      }
+      break;
+    case "w":
+      let brick01 = document.getElementsByClassName("brick")[0];
+      console.log(brick, "down");
+      let brickParent01 = brick01.parentElement;
+      const parentHeight01 = brickParent01.clientHeight;
+      const childHeight01 = brick01.clientHeight;
+
+      const cp01 = parseInt(window.getComputedStyle(brick01).top);
+      if (boundariesExceeded(cp01, "downPlayer2", brick01)) {
+        requestAnimationFrame(() => {
+          brick01.style.top = `${parentHeight01 - childHeight01 / 2}px`;
+        });
+      }
+      break;
+    case "s":
+      let brick02 = document.getElementsByClassName("brick")[0];
+      console.log(brick1, "up");
+
+      let brickParent02 = brick02.parentElement;
+      // const parentHeight02 = brickParent02.clientHeight;
+      const childHeight02 = brick02.clientHeight;
+
+      const cp02 = parseInt(window.getComputedStyle(brick02).top);
+      if (boundariesExceeded(cp02, "upPlayer1", brick02)) {
+        requestAnimationFrame(() => {
+          brick02.style.top = childHeight02 / 2 + "px";
         });
       }
       break;
