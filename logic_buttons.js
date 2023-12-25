@@ -33,11 +33,10 @@ function moveDown(index) {
   let playerBrick = document.getElementsByClassName("brick")[index];
   const currentPosition = parseInt(window.getComputedStyle(playerBrick).top);
 
-  console.log("Boundary Down: currentPos(y):" + currentPosition + " | + Move Pixel: " + MOVE_PIXEL_COUNT );
   if (boundariesExceeded(currentPosition, 0 ? "downPlayer1" :  "downPlayer2", playerBrick)) {
-    console.warn("Boundary Exceeded YES");
     return;
   }
+
   // -100 because in the HTML coordinate system + is downwards and - is upwards
   requestAnimationFrame(() => {
     playerBrick.style.top = currentPosition + MOVE_PIXEL_COUNT + "px";
@@ -280,24 +279,47 @@ function moveBallUp() {
   const player2Top = parseInt(window.getComputedStyle(player2).top);
   const player2Left = parseInt(window.getComputedStyle(player2).left);
 
+  let player1 = document.getElementById("player1");
+  const player1Top = parseInt(window.getComputedStyle(player1).top);
+  const player1Left = parseInt(window.getComputedStyle(player1).left);
+
   // if ball touches player 2
   if (
     // ball is in between player 2 horizontal plane
     (
-      currentPositionTop - ball.clientHeight - player2Top < ball.clientHeight/2 &&
-      player2Top - ball.clientHeight - currentPositionTop < ball.clientHeight/2
+      currentPositionTop - ball.clientHeight - player2Top < ball.clientHeight / 2 &&
+      player2Top - ball.clientHeight - currentPositionTop < ball.clientHeight / 2
     ) &&
     // ball touches player 2
     currentPositionLeft + ball.clientWidth - player2Left >= 0
   ) {
     // player2.style.backgroundColor = "rgba(255, 0, 0, 0.333)";
     player2.style.backgroundColor = "green";
-
     BALL_MOVE_PIXEL_COUNT_L_R *= -1;
+    // alert("AAALL")
+    // console.log()
   } else {
     if (player2.style.backgroundColor !== "black") {
       player2.style.backgroundColor = "black";
     }
+  }
+
+  if (
+    // ball is in between player 1 horizontal plane
+    (
+      currentPositionTop - ball.clientHeight - player1Top < ball.clientHeight / 2 &&
+      player1Top - ball.clientHeight - currentPositionTop < ball.clientHeight / 2
+    ) &&
+      // ball touches player 1
+      currentPositionLeft - player1.clientWidth  <= 0
+  ) {
+    player1.style.backgroundColor = "red";
+    BALL_MOVE_PIXEL_COUNT_L_R *= -1;
+  } else {
+    if (player1.style.backgroundColor !== "black") {
+      player1.style.backgroundColor = "black";
+    }
+
   }
 
   ball.style.top = currentPositionTop - BALL_MOVE_PIXEL_COUNT_U_D + "px";
@@ -327,6 +349,12 @@ function moveBallLeft() {
   }
 
   if (currentPosition >= ball.parentElement.clientWidth - ball.clientWidth) {
+    alert("YOU lost homie :(");
+    freezeRestart();
+    return;
+  }
+
+  if (currentPosition <= 0) {
     alert("YOU lost homie :(");
     freezeRestart();
     return;
