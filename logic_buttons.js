@@ -18,27 +18,29 @@ var isAnimating2 = false;
  * @returns 
  */
 function moveUp(index) {
-  var player1Brick = document.getElementsByClassName("brick")[index];
-  const currentPosition = parseInt(window.getComputedStyle(player1Brick).top);
-  if (boundariesExceeded(currentPosition, "upPlayer2", player1Brick)) {
+  let playerBrick = document.getElementsByClassName("brick")[index];
+  const currentPosition = parseInt(window.getComputedStyle(playerBrick).top);
+  if (boundariesExceeded(currentPosition, index === 0 ? "upPlayer1" : "upPlayer2", playerBrick)) {
     return;
   }
   // -100 because in the HTML coordinate system + is downwards and - is upwards
   requestAnimationFrame(() => {
-    player1Brick.style.top = currentPosition - MOVE_PIXEL_COUNT + "px";
+    playerBrick.style.top = currentPosition - MOVE_PIXEL_COUNT + "px";
   });
 }
 
 function moveDown(index) {
-  var player1Brick = document.getElementsByClassName("brick")[index];
-  const currentPosition = parseInt(window.getComputedStyle(player1Brick).top);
+  let playerBrick = document.getElementsByClassName("brick")[index];
+  const currentPosition = parseInt(window.getComputedStyle(playerBrick).top);
 
-  if (boundariesExceeded(currentPosition, "downPlayer2", player1Brick)) {
+  console.log("Boundary Down: currentPos(y):" + currentPosition + " | + Move Pixel: " + MOVE_PIXEL_COUNT );
+  if (boundariesExceeded(currentPosition, 0 ? "downPlayer1" :  "downPlayer2", playerBrick)) {
+    console.warn("Boundary Exceeded YES");
     return;
   }
   // -100 because in the HTML coordinate system + is downwards and - is upwards
   requestAnimationFrame(() => {
-    player1Brick.style.top = currentPosition + MOVE_PIXEL_COUNT + "px";
+    playerBrick.style.top = currentPosition + MOVE_PIXEL_COUNT + "px";
   });
 }
 
@@ -68,14 +70,14 @@ function boundariesExceeded(currentPosition, direction, brickElement) {
   // Player 1 Boundary check
   if (
     direction === "upPlayer1" &&
-    currentPosition - MOVE_PIXEL_COUNT * 1.4 < 0
+    currentPosition - MOVE_PIXEL_COUNT * 1 <= 0
   ) {
     return true;
   }
 
   if (
     direction === "downPlayer1" &&
-    currentPosition + MOVE_PIXEL_COUNT * 1.4 > gameCanvas.clientHeight
+    currentPosition + brickElement.clientHeight * 1 >= gameCanvas.clientHeight
   ) {
     return true;
   }
@@ -204,30 +206,32 @@ window.addEventListener("keyup", function (event) {
       break;
     case "w":
       let brick01 = document.getElementsByClassName("brick")[0];
-      console.log(brick, "down");
+      console.log(brick01, "down");
       let brickParent01 = brick01.parentElement;
       const parentHeight01 = brickParent01.clientHeight;
       const childHeight01 = brick01.clientHeight;
 
       const cp01 = parseInt(window.getComputedStyle(brick01).top);
-      if (boundariesExceeded(cp01, "downPlayer2", brick01)) {
+      if (boundariesExceeded(cp01, "upPlayer1", brick01)) {
         requestAnimationFrame(() => {
-          brick01.style.top = `${parentHeight01 - childHeight01 / 2}px`;
+          brick01.style.top = childHeight01 / 2 + "px";
+
         });
       }
       break;
+
     case "s":
       let brick02 = document.getElementsByClassName("brick")[0];
-      console.log(brick1, "up");
+      console.log(brick02, "up");
 
       let brickParent02 = brick02.parentElement;
-      // const parentHeight02 = brickParent02.clientHeight;
+      const parentHeight02 = brickParent02.clientHeight;
       const childHeight02 = brick02.clientHeight;
 
       const cp02 = parseInt(window.getComputedStyle(brick02).top);
-      if (boundariesExceeded(cp02, "upPlayer1", brick02)) {
+      if (boundariesExceeded(cp02, "downPlayer1", brick02)) {
         requestAnimationFrame(() => {
-          brick02.style.top = childHeight02 / 2 + "px";
+          brick02.style.top = `${parentHeight02 - childHeight02 / 2}px`;
         });
       }
       break;
