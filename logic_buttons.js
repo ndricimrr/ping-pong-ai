@@ -62,7 +62,7 @@ function boundariesExceeded(currentPosition, direction, brickElement) {
 
   if (
     direction === "downPlayer2" &&
-    currentPosition + MOVE_PIXEL_COUNT * 1.4 > gameCanvas.clientHeight
+    currentPosition + brickElement.clientHeight > gameCanvas.clientHeight
   ) {
     return true;
   }
@@ -70,7 +70,7 @@ function boundariesExceeded(currentPosition, direction, brickElement) {
   // Player 1 Boundary check
   if (
     direction === "upPlayer1" &&
-    currentPosition - MOVE_PIXEL_COUNT * 1 <= 0
+    currentPosition - MOVE_PIXEL_COUNT * 1.4 <= 0
   ) {
     return true;
   }
