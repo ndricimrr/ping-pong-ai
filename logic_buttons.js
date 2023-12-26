@@ -287,20 +287,25 @@ function moveBallUp() {
   if (
     // ball is in between player 2 horizontal plane
     (
-      currentPositionTop - ball.clientHeight - player2Top < ball.clientHeight / 2 &&
-      player2Top - ball.clientHeight - currentPositionTop < ball.clientHeight / 2
+      currentPositionTop - ball.clientHeight - player2Top >= 0 &&
+      currentPositionTop - player2Top  <= player2.clientHeight
     ) &&
     // ball touches player 2
-    currentPositionLeft + ball.clientWidth - player2Left >= 0
+    true
+    // currentPositionLeft + ball.clientWidth - player2Left >= 0
   ) {
     // player2.style.backgroundColor = "rgba(255, 0, 0, 0.333)";
-    player2.style.backgroundColor = "green";
-    BALL_MOVE_PIXEL_COUNT_L_R *= -1;
-    // alert("AAALL")
-    // console.log()
+    player2.style.backgroundColor = "rgba(128, 128, 128, 0.507)";
+
+    player2.style.width = "100%";
+    player2.style.left = 0;
+    // BALL_MOVE_PIXEL_COUNT_L_R *= -1;
   } else {
     if (player2.style.backgroundColor !== "black") {
       player2.style.backgroundColor = "black";
+      player2.style.width = "1%"
+      player2.style.left = "99%";
+
     }
   }
 
@@ -348,17 +353,22 @@ function moveBallLeft() {
     BALL_MOVE_PIXEL_COUNT_L_R *= -1;
   }
 
-  if (currentPosition >= ball.parentElement.clientWidth - ball.clientWidth) {
-    alert("YOU lost homie :(");
-    freezeRestart();
-    return;
+  if (currentPosition >= ball.parentElement.clientWidth) {
+    // Reverse the direction when reaching the top or bottom boundary
+    BALL_MOVE_PIXEL_COUNT_L_R *= -1;
   }
 
-  if (currentPosition <= 0) {
-    alert("YOU lost homie :(");
-    freezeRestart();
-    return;
-  }
+  // if (currentPosition >= ball.parentElement.clientWidth - ball.clientWidth) {
+  //   alert("YOU lost homie :(");
+  //   freezeRestart();
+  //   return;
+  // }
+
+  // if (currentPosition <= 0) {
+  //   alert("YOU lost homie :(");
+  //   freezeRestart();
+  //   return;
+  // }
   ball.style.left = currentPosition - BALL_MOVE_PIXEL_COUNT_L_R + "px";
 
   requestAnimationFrame(moveBallLeft);
