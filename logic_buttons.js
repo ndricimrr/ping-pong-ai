@@ -1,8 +1,7 @@
 var MOVE_PIXEL_COUNT = 50;
 
-var BALL_MOVE_PIXEL_COUNT = 40;
 
-var BALL_MOVE_PIXEL_COUNT_L_R = 100;
+var BALL_MOVE_PIXEL_COUNT_L_R = 220;
 var BALL_MOVE_PIXEL_COUNT_U_D = BALL_MOVE_PIXEL_COUNT_L_R;
 
 var BALL_MOVE_PIXEL_COUNT = BALL_MOVE_PIXEL_COUNT_L_R;
@@ -20,18 +19,18 @@ var isAnimating2 = false;
 //   isDragging = false;
 // })
 
-document.addEventListener('mousemove', function(e){
-  let ballDiv = document.getElementById("ball");
+// document.addEventListener('mousemove', function(e){
+//   let ballDiv = document.getElementById("ball");
 
-  let rect = ballDiv.getBoundingClientRect();
-  let offsetX = e.clientX - rect.width / 2;
-  let offsetY = e.clientY - rect.height / 2;
+//   let rect = ballDiv.getBoundingClientRect();
+//   let offsetX = e.clientX - rect.width / 2;
+//   let offsetY = e.clientY - rect.height / 2;
 
-  // if (isDragging) {
-    ballDiv.style.left = offsetX + 'px';
-    ballDiv.style.top =offsetY + 'px';
-  // }
-})
+//   // if (isDragging) {
+//     ballDiv.style.left = offsetX + 'px';
+//     ballDiv.style.top =offsetY + 'px';
+//   // }
+// })
 
 /**
  * Moves player with index up an MOVE_PIXEL_COUNT amount of pixels
@@ -304,12 +303,18 @@ function moveBallUp() {
   const player1Top = parseInt(window.getComputedStyle(player1).top);
   const player1Left = parseInt(window.getComputedStyle(player1).left);
 
+
+  const printBallTop = document.getElementById("ballTop");
+  const printBallTop2= document.getElementById("ballTop2");
+
+  const printPlayerTop = document.getElementById("playerTop");
+
   // const ballHeight = parseInt(window.getComputedStyle(ball).getPropertyValue("height")); 
   // if ball touches player 2
   if (
     // ball is in between player 2 horizontal plane
     (
-      (currentPositionTop + ball.clientHeight) - player2Top >= 0 
+      (currentPositionTop - Math.abs(BALL_MOVE_PIXEL_COUNT_L_R)) - ball.clientHeight - player2Top >= 0 
       // ||
       // false 
       // currentPositionTop - ( player2Top + player2.clientHeight ) <= 0
@@ -320,6 +325,8 @@ function moveBallUp() {
   ) {
     // player2.style.backgroundColor = "rgba(255, 0, 0, 0.333)";
     player2.style.backgroundColor = "rgba(128, 128, 128, 0.507)";
+    printBallTop.innerHTML= "BallTop:"+ currentPositionTop;
+    printPlayerTop.innerHTML = "PlayerTop:" + player2Top;
 
     player2.style.width = "100%";
     player2.style.left = 0;
@@ -330,6 +337,15 @@ function moveBallUp() {
       player2.style.width = "1%"
       player2.style.left = "99%";
 
+      printBallTop2.innerHTML= "BallTopCont:"+ currentPositionTop + 
+      "\n(MOVEPIXEL)="+ Math.abs(BALL_MOVE_PIXEL_COUNT) +
+      "\n(PlayerHeight)="+(player2.clientHeight) +
+
+       "\n(BallWidth)=" + ball.clientHeight + ",SUM = " + (Math.abs(BALL_MOVE_PIXEL_COUNT)+ball.clientHeight) ;
+
+    //    printBallTop.innerText("BallTop:"+ currentPositionTop);
+    // printPlayerTop.innerHTML("PlayerTop:" + player2Top);
+    // console.log(printBallTop, printPlayerTop)
     }
   }
 
