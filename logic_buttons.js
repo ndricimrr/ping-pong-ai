@@ -12,6 +12,27 @@ var shouldFreezeBall = true;
 var isAnimating1 = false;
 var isAnimating2 = false;
 
+// var ballDiv = document.getElementById("ball");
+
+
+
+// document.addEventListener('mouseup', function(){
+//   isDragging = false;
+// })
+
+document.addEventListener('mousemove', function(e){
+  let ballDiv = document.getElementById("ball");
+
+  let rect = ballDiv.getBoundingClientRect();
+  let offsetX = e.clientX - rect.width / 2;
+  let offsetY = e.clientY - rect.height / 2;
+
+  // if (isDragging) {
+    ballDiv.style.left = offsetX + 'px';
+    ballDiv.style.top =offsetY + 'px';
+  // }
+})
+
 /**
  * Moves player with index up an MOVE_PIXEL_COUNT amount of pixels
  * @param {*} index player index
@@ -283,12 +304,15 @@ function moveBallUp() {
   const player1Top = parseInt(window.getComputedStyle(player1).top);
   const player1Left = parseInt(window.getComputedStyle(player1).left);
 
+  // const ballHeight = parseInt(window.getComputedStyle(ball).getPropertyValue("height")); 
   // if ball touches player 2
   if (
     // ball is in between player 2 horizontal plane
     (
-      currentPositionTop - ball.clientHeight - player2Top >= 0 &&
-      currentPositionTop - player2Top  <= player2.clientHeight
+      (currentPositionTop + ball.clientHeight) - player2Top >= 0 
+      // ||
+      // false 
+      // currentPositionTop - ( player2Top + player2.clientHeight ) <= 0
     ) &&
     // ball touches player 2
     true
