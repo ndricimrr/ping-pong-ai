@@ -346,6 +346,7 @@ function moveBallUp() {
     //    printBallTop.innerText("BallTop:"+ currentPositionTop);
     // printPlayerTop.innerHTML("PlayerTop:" + player2Top);
     // console.log(printBallTop, printPlayerTop)
+
     }
   }
 
@@ -409,6 +410,61 @@ function moveBallLeft() {
   //   freezeRestart();
   //   return;
   // }
+
+  let player2 = document.getElementById("player2");
+  const player2Top = parseInt(window.getComputedStyle(player2).top);
+  const player2Left = parseInt(window.getComputedStyle(player2).left);
+
+  let player1 = document.getElementById("player1");
+  const player1Top = parseInt(window.getComputedStyle(player1).top);
+  const player1Left = parseInt(window.getComputedStyle(player1).left);
+
+
+  const printBallTop = document.getElementById("ballTop");
+  const printBallTop2= document.getElementById("ballTop2");
+
+  const printPlayerTop = document.getElementById("playerTop");
+
+  // const ballHeight = parseInt(window.getComputedStyle(ball).getPropertyValue("height")); 
+  // if ball touches player 2
+  if (
+    // ball is in between player 2 horizontal plane
+    (
+      (currentPositionTop - Math.abs(BALL_MOVE_PIXEL_COUNT_L_R)) - ball.clientHeight - player2Top >= 0 
+      // ||
+      // false 
+      // currentPositionTop - ( player2Top + player2.clientHeight ) <= 0
+    ) &&
+    // ball touches player 2
+    true
+    // currentPositionLeft + ball.clientWidth - player2Left >= 0
+  ) {
+    // player2.style.backgroundColor = "rgba(255, 0, 0, 0.333)";
+    player2.style.backgroundColor = "rgba(128, 128, 128, 0.507)";
+    // printBallTop.innerHTML= "BallTop:"+ currentPositionTop;
+    // printPlayerTop.innerHTML = "PlayerTop:" + player2Top;
+
+    player2.style.width = "100%";
+    player2.style.left = 0;
+    // BALL_MOVE_PIXEL_COUNT_L_R *= -1;
+  } else {
+    if (player2.style.backgroundColor !== "black") {
+      player2.style.backgroundColor = "black";
+      player2.style.width = "1%"
+      player2.style.left = "99%";
+
+      // printBallTop2.innerHTML= "BallTopCont:"+ currentPositionTop + 
+      // "\n(MOVEPIXEL)="+ Math.abs(BALL_MOVE_PIXEL_COUNT) +
+      // "\n(PlayerHeight)="+(player2.clientHeight) +
+
+      //  "\n(BallWidth)=" + ball.clientHeight + ",SUM = " + (Math.abs(BALL_MOVE_PIXEL_COUNT)+ball.clientHeight) ;
+
+    //    printBallTop.innerText("BallTop:"+ currentPositionTop);
+    // printPlayerTop.innerHTML("PlayerTop:" + player2Top);
+    // console.log(printBallTop, printPlayerTop)
+    
+    }
+  }
   ball.style.left = currentPosition - BALL_MOVE_PIXEL_COUNT_L_R + "px";
 
   requestAnimationFrame(moveBallLeft);
