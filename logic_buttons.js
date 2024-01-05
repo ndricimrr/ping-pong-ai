@@ -1,7 +1,7 @@
 var MOVE_PIXEL_COUNT = 50;
 
 
-var BALL_MOVE_PIXEL_COUNT_L_R = 220;
+var BALL_MOVE_PIXEL_COUNT_L_R = 80;
 var BALL_MOVE_PIXEL_COUNT_U_D = BALL_MOVE_PIXEL_COUNT_L_R;
 
 var BALL_MOVE_PIXEL_COUNT = BALL_MOVE_PIXEL_COUNT_L_R;
@@ -410,6 +410,9 @@ function moveBallLeft() {
   //   freezeRestart();
   //   return;
   // }
+
+  const currentPositionTop = parseInt(window.getComputedStyle(ball).top);
+
 
   let player2 = document.getElementById("player2");
   const player2Top = parseInt(window.getComputedStyle(player2).top);
