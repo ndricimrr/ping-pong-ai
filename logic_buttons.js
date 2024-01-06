@@ -312,7 +312,6 @@ function moveBallUp() {
 
   let player1 = document.getElementById("player1");
   const player1Top = parseInt(window.getComputedStyle(player1).top);
-  const player1Left = parseInt(window.getComputedStyle(player1).left);
 
 
   // if ball touches player 2
@@ -354,34 +353,14 @@ function moveBallUp() {
 
 // KEEP THIS ONE ONLY: BOUNCE LEFT then RIGHT
 function moveBallLeft() {
-  if (shouldFreezeBall) {
-    return;
-  }
   let ball = document.getElementById("ball");
   const currentPosition = parseInt(window.getComputedStyle(ball).left);
-  if (currentPosition <= 0) {
+  if (shouldFreezeBall || currentPosition <= 0 || currentPosition + ball.clientHeight >= ball.parentElement.clientWidth) {
     // Reverse the direction when reaching the top or bottom boundary
     freezeGame();
-
-    // BALL_MOVE_PIXEL_COUNT_L_R *= -1;
+    return
   }
-
-  if (currentPosition + ball.clientHeight >= ball.parentElement.clientWidth) {
-    freezeGame();
-    // Reverse the direction when reaching the top or bottom boundary
-    // BALL_MOVE_PIXEL_COUNT_L_R *= -1;
-  }
-
-  const currentPositionTop = parseInt(window.getComputedStyle(ball).top);
-
-
-  let player2 = document.getElementById("player2");
-  const player2Top = parseInt(window.getComputedStyle(player2).top);
-  const player2Left = parseInt(window.getComputedStyle(player2).left);
-
-  let player1 = document.getElementById("player1");
   ball.style.left = currentPosition - BALL_MOVE_PIXEL_COUNT_L_R + "px";
-
   requestAnimationFrame(moveBallLeft);
 }
 
