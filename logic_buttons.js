@@ -333,19 +333,23 @@ function moveBallUp() {
       // false 
       // currentPositionTop - ( player2Top + player2.clientHeight ) <= 0
     ) &&
+    ((currentPositionTop - player2Top) <= player2.clientHeight)
+    &&
     // ball touches player 2
     true
-    // currentPositionLeft + ball.clientWidth - player2Left >= 0
+    &&
+    ( (currentPositionLeft + ball.clientWidth - player2Left ) >= -5)
   ) {
-    // player2.style.backgroundColor = "rgba(255, 0, 0, 0.333)";
-    player2.style.backgroundColor = "red";
+    player2.style.backgroundColor = "rgba(255, 0, 0, 0.333)";
+    // player2.style.backgroundColor = "red";
     printBallTop.innerHTML= "UP: BallTop:"+ currentPositionTop;
     printPlayerTop.innerHTML = "UP: PlayerTop:" + player2Top;
 
-    player2.style.width = "100%";
-    player2.style.left = 0;
-    // BALL_MOVE_PIXEL_COUNT_L_R *= -1;
-  } else {
+    // player2.style.width = "100%";
+    // player2.style.left = 0;
+    BALL_MOVE_PIXEL_COUNT_L_R *= -1;
+  } 
+  else {
     if (player2.style.backgroundColor !== "black") {
       player2.style.backgroundColor = "black";
       player2.style.width = "1%"
@@ -356,11 +360,6 @@ function moveBallUp() {
       "\n(PlayerHeight)="+(player2.clientHeight) +
 
        "\n(BallWidth)=" + ball.clientHeight + ",SUM = " + (Math.abs(BALL_MOVE_PIXEL_COUNT)+ball.clientHeight) ;
-
-    //    printBallTop.innerText("BallTop:"+ currentPositionTop);
-    // printPlayerTop.innerHTML("PlayerTop:" + player2Top);
-    // console.log(printBallTop, printPlayerTop)
-
     }
   }
 
@@ -405,18 +404,6 @@ function moveBallLeft() {
     BALL_MOVE_PIXEL_COUNT_L_R *= -1;
   }
 
-  // if (currentPosition >= ball.parentElement.clientWidth - ball.clientWidth) {
-  //   alert("YOU lost homie :(");
-  //   freezeRestart();
-  //   return;
-  // }
-
-  // if (currentPosition <= 0) {
-  //   alert("YOU lost homie :(");
-  //   freezeRestart();
-  //   return;
-  // }
-
   const currentPositionTop = parseInt(window.getComputedStyle(ball).top);
 
 
@@ -436,43 +423,45 @@ function moveBallLeft() {
 
   // const ballHeight = parseInt(window.getComputedStyle(ball).getPropertyValue("height")); 
   // if ball touches player 2
-  if (
-    // ball is in between player 2 horizontal plane
-    (
-      currentPositionTop - player2Top >= 0
-      // ||
-      // false 
-      // currentPositionTop - ( player2Top + player2.clientHeight ) <= 0
-    ) &&
-    // ball touches player 2
-    true
-    // currentPositionLeft + ball.clientWidth - player2Left >= 0
-  ) {
-    player2.style.backgroundColor = "rgba(84, 186, 50, 0.411)";
-    printBallTop.innerHTML= "BallTop:"+ currentPositionTop;
-    printPlayerTop.innerHTML = "PlayerTop:" + player2Top;
+  // if (
+  //   // ball is in between player 2 horizontal plane
+  //   (
+  //     currentPositionTop - player2Top >= 0
+  //     // ||
+  //     // false 
+  //     // currentPositionTop - ( player2Top + player2.clientHeight ) <= 0
+  //   ) &&
+  //   currentPositionTop - player2Top <= player2.clientHeight
+  //   &&
+  //   // ball touches player 2
+  //   true
+  //   // currentPositionLeft + ball.clientWidth - player2Left >= 0
+  // ) {
+  //   player2.style.backgroundColor = "rgba(84, 186, 50, 0.411)";
+  //   printBallTop.innerHTML= "BallTop:"+ currentPositionTop;
+  //   printPlayerTop.innerHTML = "PlayerTop:" + player2Top;
 
-    player2.style.width = "100%";
-    player2.style.left = 0;
-    // BALL_MOVE_PIXEL_COUNT_L_R *= -1;
-  } else {
-    if (player2.style.backgroundColor !== "black") {
-      // player2.style.backgroundColor = "black";
-      // player2.style.width = "1%"
-      // player2.style.left = "99%";
+  //   player2.style.width = "100%";
+  //   player2.style.left = 0;
+  //   // BALL_MOVE_PIXEL_COUNT_L_R *= -1;
+  // } else {
+  //   if (player2.style.backgroundColor !== "black") {
+  //     // player2.style.backgroundColor = "black";
+  //     // player2.style.width = "1%"
+  //     // player2.style.left = "99%";
 
-      // printBallTop2.innerHTML= "BallTopCont:"+ currentPositionTop + 
-      // "\n(MOVEPIXEL)="+ Math.abs(BALL_MOVE_PIXEL_COUNT) +
-      // "\n(PlayerHeight)="+(player2.clientHeight) +
+  //     // printBallTop2.innerHTML= "BallTopCont:"+ currentPositionTop + 
+  //     // "\n(MOVEPIXEL)="+ Math.abs(BALL_MOVE_PIXEL_COUNT) +
+  //     // "\n(PlayerHeight)="+(player2.clientHeight) +
 
-      //  "\n(BallWidth)=" + ball.clientHeight + ",SUM = " + (Math.abs(BALL_MOVE_PIXEL_COUNT)+ball.clientHeight) ;
+  //     //  "\n(BallWidth)=" + ball.clientHeight + ",SUM = " + (Math.abs(BALL_MOVE_PIXEL_COUNT)+ball.clientHeight) ;
 
-    //    printBallTop.innerText("BallTop:"+ currentPositionTop);
-    // printPlayerTop.innerHTML("PlayerTop:" + player2Top);
-    // console.log(printBallTop, printPlayerTop)
+  //   //    printBallTop.innerText("BallTop:"+ currentPositionTop);
+  //   // printPlayerTop.innerHTML("PlayerTop:" + player2Top);
+  //   // console.log(printBallTop, printPlayerTop)
     
-    }
-  }
+  //   }
+  // }
   ball.style.left = currentPosition - BALL_MOVE_PIXEL_COUNT_L_R + "px";
 
   requestAnimationFrame(moveBallLeft);
