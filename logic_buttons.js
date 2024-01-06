@@ -278,6 +278,18 @@ function moveBallDown() {
   });
 }
 
+var PAUSE = false;
+
+  window['stopGame'] = ()=>{
+    freezeGame();
+  }
+
+
+  function freezeGame(){
+    // PAUSE = TRUE;
+    shouldFreezeBall = true;
+  }
+
 // KEEP THIS ONE ONLY : BOUNCE UP/DOWN
 function moveBallUp() {
   if (shouldFreezeBall) {
@@ -309,12 +321,14 @@ function moveBallUp() {
 
   const printPlayerTop = document.getElementById("playerTop");
 
+  
+
   // const ballHeight = parseInt(window.getComputedStyle(ball).getPropertyValue("height")); 
   // if ball touches player 2
   if (
     // ball is in between player 2 horizontal plane
     (
-      (currentPositionTop - Math.abs(BALL_MOVE_PIXEL_COUNT_L_R)) - ball.clientHeight - player2Top >= 0 
+      (currentPositionTop ) - player2Top <= 81 
       // ||
       // false 
       // currentPositionTop - ( player2Top + player2.clientHeight ) <= 0
@@ -324,9 +338,9 @@ function moveBallUp() {
     // currentPositionLeft + ball.clientWidth - player2Left >= 0
   ) {
     // player2.style.backgroundColor = "rgba(255, 0, 0, 0.333)";
-    player2.style.backgroundColor = "rgba(128, 128, 128, 0.507)";
-    printBallTop.innerHTML= "BallTop:"+ currentPositionTop;
-    printPlayerTop.innerHTML = "PlayerTop:" + player2Top;
+    player2.style.backgroundColor = "red";
+    printBallTop.innerHTML= "UP: BallTop:"+ currentPositionTop;
+    printPlayerTop.innerHTML = "UP: PlayerTop:" + player2Top;
 
     player2.style.width = "100%";
     player2.style.left = 0;
@@ -373,20 +387,12 @@ function moveBallUp() {
   requestAnimationFrame(moveBallUp);
 }
 
-function freezeRestart() {
-  let ball = document.getElementById("ball");
-  shouldFreezeBall = true;
-  ball.style.top = "50%";
-  ball.style.left = "50%";
-}
-
-function startGame() {
-  shouldFreezeBall = false;
-  moveBallDiagonalLeftUp();
-}
 
 // KEEP THIS ONE ONLY: BOUNCE LEFT then RIGHT
 function moveBallLeft() {
+  if (shouldFreezeBall) {
+    return;
+  }
   let ball = document.getElementById("ball");
   const currentPosition = parseInt(window.getComputedStyle(ball).left);
   if (currentPosition <= 0) {
@@ -433,7 +439,7 @@ function moveBallLeft() {
   if (
     // ball is in between player 2 horizontal plane
     (
-      (currentPositionTop - Math.abs(BALL_MOVE_PIXEL_COUNT_L_R)) - ball.clientHeight - player2Top >= 0 
+      currentPositionTop - player2Top <= 81
       // ||
       // false 
       // currentPositionTop - ( player2Top + player2.clientHeight ) <= 0
@@ -442,19 +448,18 @@ function moveBallLeft() {
     true
     // currentPositionLeft + ball.clientWidth - player2Left >= 0
   ) {
-    // player2.style.backgroundColor = "rgba(255, 0, 0, 0.333)";
-    player2.style.backgroundColor = "rgba(128, 128, 128, 0.507)";
-    // printBallTop.innerHTML= "BallTop:"+ currentPositionTop;
-    // printPlayerTop.innerHTML = "PlayerTop:" + player2Top;
+    player2.style.backgroundColor = "rgba(84, 186, 50, 0.411)";
+    printBallTop.innerHTML= "BallTop:"+ currentPositionTop;
+    printPlayerTop.innerHTML = "PlayerTop:" + player2Top;
 
     player2.style.width = "100%";
     player2.style.left = 0;
     // BALL_MOVE_PIXEL_COUNT_L_R *= -1;
   } else {
     if (player2.style.backgroundColor !== "black") {
-      player2.style.backgroundColor = "black";
-      player2.style.width = "1%"
-      player2.style.left = "99%";
+      // player2.style.backgroundColor = "black";
+      // player2.style.width = "1%"
+      // player2.style.left = "99%";
 
       // printBallTop2.innerHTML= "BallTopCont:"+ currentPositionTop + 
       // "\n(MOVEPIXEL)="+ Math.abs(BALL_MOVE_PIXEL_COUNT) +
@@ -473,6 +478,19 @@ function moveBallLeft() {
   requestAnimationFrame(moveBallLeft);
 }
 
+function freezeRestart() {
+  let ball = document.getElementById("ball");
+  shouldFreezeBall = true;
+  ball.style.top = "50%";
+  ball.style.left = "50%";
+}
+
+function startGame() {
+  shouldFreezeBall = false;
+  moveBallDiagonalLeftUp();
+}
+
+
 // keep this
 function moveBallDiagonalLeftUp() {
   let ball = document.getElementById("ball");
@@ -486,16 +504,16 @@ function moveBallDiagonalLeftUp() {
   requestAnimationFrame(() => {
     console.log("Ball 1:", currentPositionLeft, ball.clientWidth);
     console.log("Player 1", player2Top, player2Left);
-    if (
-      Math.abs(currentPositionTop - player2Top) <= 0 &&
-      Math.abs(currentPositionTop - player2Top) >= player2.clientHeight &&
-      Math.abs(currentPositionLeft + ball.clientWidth - player2Left) <= 0
-    ) {
-      console.log("Ball:", currentPositionLeft, ball.clientWidth);
+    // if (
+    //   Math.abs(currentPositionTop - player2Top) <= 0 &&
+    //   Math.abs(currentPositionTop - player2Top) >= player2.clientHeight &&
+    //   Math.abs(currentPositionLeft + ball.clientWidth - player2Left) <= 0
+    // ) {
+    //   console.log("Ball:", currentPositionLeft, ball.clientWidth);
 
-      console.log("Player", player2Top, player2Left);
-      BALL_MOVE_PIXEL_COUNT_L_R *= -1;
-    }
+    //   console.log("Player", player2Top, player2Left);
+    //   BALL_MOVE_PIXEL_COUNT_L_R *= -1;
+    // }
     moveBallUp();
     moveBallLeft();
   });
