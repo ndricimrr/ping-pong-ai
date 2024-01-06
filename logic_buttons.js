@@ -328,7 +328,7 @@ function moveBallUp() {
   if (
     // ball is in between player 2 horizontal plane
     (
-      (currentPositionTop ) - player2Top <= 81 
+      (currentPositionTop ) - player2Top >= 0
       // ||
       // false 
       // currentPositionTop - ( player2Top + player2.clientHeight ) <= 0
@@ -439,7 +439,7 @@ function moveBallLeft() {
   if (
     // ball is in between player 2 horizontal plane
     (
-      currentPositionTop - player2Top <= 81
+      currentPositionTop - player2Top >= 0
       // ||
       // false 
       // currentPositionTop - ( player2Top + player2.clientHeight ) <= 0
