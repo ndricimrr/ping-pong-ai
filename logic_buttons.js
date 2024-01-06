@@ -40,9 +40,30 @@ var isAnimating2 = false;
 function moveUp(index) {
   let playerBrick = document.getElementsByClassName("brick")[index];
   const currentPosition = parseInt(window.getComputedStyle(playerBrick).top);
-  if (boundariesExceeded(currentPosition, index === 0 ? "upPlayer1" : "upPlayer2", playerBrick)) {
-    return;
+
+
+  // console.log("direction:", direction);
+  console.log("currentPosition:", currentPosition);
+  console.log("---");
+
+  // Player 2 Boundary check
+  if (
+    index === 1 
+  ) {
+    if (
+      currentPosition <= 0
+    ) {
+      return;
+    }
+
+    if (
+      currentPosition - MOVE_PIXEL_COUNT <= 0
+    ) {
+      playerBrick.style.top = 0 + "px";
+      return;
+    }
   }
+  
   // -100 because in the HTML coordinate system + is downwards and - is upwards
   requestAnimationFrame(() => {
     playerBrick.style.top = currentPosition - MOVE_PIXEL_COUNT + "px";
@@ -52,8 +73,12 @@ function moveUp(index) {
 function moveDown(index) {
   let playerBrick = document.getElementsByClassName("brick")[index];
   const currentPosition = parseInt(window.getComputedStyle(playerBrick).top);
+  var gameCanvas = playerBrick.parentElement; // Assuming the gameCanvas is the direct parent
 
-  if (boundariesExceeded(currentPosition, 0 ? "downPlayer1" :  "downPlayer2", playerBrick)) {
+  if (
+    index === 1 &&
+    currentPosition + playerBrick.clientHeight > gameCanvas.clientHeight
+  ) {
     return;
   }
 
@@ -74,7 +99,7 @@ function boundariesExceeded(currentPosition, direction, brickElement) {
 
   if (
     direction === "upPlayer2" &&
-    currentPosition - MOVE_PIXEL_COUNT * 1.4 < 0
+    currentPosition  <= 0
   ) {
     return true;
   }
@@ -143,12 +168,6 @@ function debounce(func, delay) {
   };
 }
 
-// Debounce the moveDown function to prevent rapid calls
-// var debouncedMoveDown = debounce(moveDown, 100);
-// var debouncedMoveUp = debounce(moveUp, 100);
-
-var debouncedMoveDown = moveDown;
-var debouncedMoveUp = moveUp;
 
 window.addEventListener("keydown", function (event) {
   switch (event.key) {
@@ -181,17 +200,17 @@ window.addEventListener("keydown", function (event) {
     //   break;
 
     case "ArrowDown":
-      debouncedMoveDown(1);
+      moveDown(1);
       break;
     case "ArrowUp":
-      debouncedMoveUp(1);
+      moveUp(1);
       break;
     default:
       break;
   }
 });
 
-window.addEventListener("keyup", function (event) {
+window.addEventListener("keyupsadsad", function (event) {
   // return;
   switch (event.key) {
     case "ArrowDown":
@@ -352,8 +371,8 @@ function moveBallUp() {
   else {
     if (player2.style.backgroundColor !== "black") {
       player2.style.backgroundColor = "black";
-      player2.style.width = "1%"
-      player2.style.left = "99%";
+      // player2.style.width = "1%"
+      // player2.style.left = "99%";
 
       printBallTop2.innerHTML= "BallTopCont:"+ currentPositionTop + 
       "\n(MOVEPIXEL)="+ Math.abs(BALL_MOVE_PIXEL_COUNT) +
