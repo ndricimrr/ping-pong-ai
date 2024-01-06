@@ -331,13 +331,11 @@ function moveBallUp() {
     }
   }
 
-
-
   // if ball touches player 1
   if (
     // ball is in between player 2 horizontal plane
-    ((currentPositionTop ) - player1Top >= 0) &&
-    ((currentPositionTop - player1Top) <= player1.clientHeight) &&
+    ((currentPositionTop  - player1Top  + ball.clientHeight ) >= 0) &&
+    ((currentPositionTop - player1Top) <= player1.clientHeight + ball.clientHeight) &&
     ( (currentPositionLeft - player1.clientWidth) <= 0)
   ) {
     player1.style.backgroundColor = "green";
@@ -348,7 +346,6 @@ function moveBallUp() {
       player1.style.backgroundColor = "black";
     }
   }
-
 
   ball.style.top = currentPositionTop - BALL_MOVE_PIXEL_COUNT_U_D + "px";
 
