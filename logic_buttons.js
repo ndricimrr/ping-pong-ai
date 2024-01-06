@@ -11,27 +11,6 @@ var shouldFreezeBall = true;
 var isAnimating1 = false;
 var isAnimating2 = false;
 
-// var ballDiv = document.getElementById("ball");
-
-
-
-// document.addEventListener('mouseup', function(){
-//   isDragging = false;
-// })
-
-// document.addEventListener('mousemove', function(e){
-//   let ballDiv = document.getElementById("ball");
-
-//   let rect = ballDiv.getBoundingClientRect();
-//   let offsetX = e.clientX - rect.width / 2;
-//   let offsetY = e.clientY - rect.height / 2;
-
-//   // if (isDragging) {
-//     ballDiv.style.left = offsetX + 'px';
-//     ballDiv.style.top =offsetY + 'px';
-//   // }
-// })
-
 /**
  * Moves player with index up an MOVE_PIXEL_COUNT amount of pixels
  * @param {*} index player index
@@ -40,7 +19,6 @@ var isAnimating2 = false;
 function moveUp(index) {
   let playerBrick = document.getElementsByClassName("brick")[index];
   const currentPosition = parseInt(window.getComputedStyle(playerBrick).top);
-
 
   // console.log("direction:", direction);
   console.log("currentPosition:", currentPosition);
@@ -76,11 +54,18 @@ function moveDown(index) {
   var gameCanvas = playerBrick.parentElement; // Assuming the gameCanvas is the direct parent
 
   if (
-    index === 1 &&
-    currentPosition + playerBrick.clientHeight > gameCanvas.clientHeight
+    index === 1 
   ) {
-    return;
+    // if (currentPosition + playerBrick.clientHeight > gameCanvas.clientHeight ) {
+    //   return;
+    // }
+
+    if (currentPosition + playerBrick.clientHeight + MOVE_PIXEL_COUNT > gameCanvas.clientHeight ) {
+      playerBrick.style.top = gameCanvas.clientHeight - playerBrick.clientHeight + "px";
+      return;
+    }
   }
+
 
   // -100 because in the HTML coordinate system + is downwards and - is upwards
   requestAnimationFrame(() => {
