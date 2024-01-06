@@ -318,7 +318,7 @@ function moveBallUp() {
   // if ball touches player 2
   if (
     // ball is in between player 2 horizontal plane
-    ((currentPositionTop ) - player2Top >= ball.clientHeight ) &&
+    ((currentPositionTop - player2Top + ball.clientHeight) >= 0 ) &&
     ((currentPositionTop - player2Top) <= player2.clientHeight + ball.clientHeight) &&
     ( (currentPositionLeft + ball.clientWidth - player2Left ) >= 0)
   ) {
