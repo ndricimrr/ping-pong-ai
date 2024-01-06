@@ -1,7 +1,7 @@
-var MOVE_PIXEL_COUNT = 50;
+var MOVE_PIXEL_COUNT = 70;
 
 
-var BALL_MOVE_PIXEL_COUNT_L_R = 80;
+var BALL_MOVE_PIXEL_COUNT_L_R = 120;
 var BALL_MOVE_PIXEL_COUNT_U_D = BALL_MOVE_PIXEL_COUNT_L_R;
 
 var BALL_MOVE_PIXEL_COUNT = BALL_MOVE_PIXEL_COUNT_L_R;
@@ -282,8 +282,8 @@ var PAUSE = false;
     // PAUSE = TRUE;
     shouldFreezeBall = true;
     const ball = document.getElementById("ball");
-    ball.style.top = 50 + "%px"
-    ball.style.left = 50 + "%px"
+    ball.style.top = 50 + "%"
+    ball.style.left = 50 + "%"
     alert("GAME OVER");
     return;
 
