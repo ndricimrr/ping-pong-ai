@@ -2,14 +2,13 @@ var MOVE_PIXEL_COUNT = 95;
 
 var BALL_MOVE_PIXEL_COUNT_L_R = 100;
 var BALL_MOVE_PIXEL_COUNT_U_D = BALL_MOVE_PIXEL_COUNT_L_R;
-
 var BALL_MOVE_PIXEL_COUNT = BALL_MOVE_PIXEL_COUNT_L_R;
 
 var shouldFreezeBall = true;
 
 /**
  * Moves player with index up an MOVE_PIXEL_COUNT amount of pixels
- * @param {*} index player index
+ * @param {number} index player index: 0 for player 1 and index 1 for player 2
  * @returns
  */
 function moveUp(index) {
@@ -24,14 +23,17 @@ function moveUp(index) {
     playerBrick.style.top = 0 + "px";
     return;
   }
-  // }
-
-  // -100 because in the HTML coordinate system + is downwards and - is upwards
+  // - because in the HTML coordinate system + is downwards and - is upwards
   requestAnimationFrame(() => {
     playerBrick.style.top = currentPosition - MOVE_PIXEL_COUNT + "px";
   });
 }
 
+/**
+ * Moves the player brick element down a number of pixels
+ * @param {number} index 0 for player 1 and index 1 for player 2
+ * @returns void when movement should be cancelled
+ */
 function moveDown(index) {
   const playerBrick = document.getElementsByClassName("brick")[index];
   const currentPosition = parseInt(window.getComputedStyle(playerBrick).top);
@@ -45,87 +47,10 @@ function moveDown(index) {
       gameCanvas.clientHeight - playerBrick.clientHeight + "px";
     return;
   }
-  // }
-
-  // +100 because in the HTML coordinate system + is downwards and - is upwards
+  // + because in the HTML coordinate system + is downwards and - is upwards
   requestAnimationFrame(() => {
     playerBrick.style.top = currentPosition + MOVE_PIXEL_COUNT + "px";
   });
-}
-
-function boundariesExceeded(currentPosition, direction, brickElement) {
-  var gameCanvas = brickElement.parentElement; // Assuming the gameCanvas is the direct parent
-
-  console.log("direction:", direction);
-  console.log("currentPosition:", currentPosition);
-  console.log("---");
-
-  // Player 2 Boundary check
-
-  // if (
-  //   direction === "upPlayer2" &&
-  //   currentPosition  <= 0
-  // ) {
-  //   return true;
-  // }
-
-  // if (
-  //   direction === "downPlayer2" &&
-  //   currentPosition + brickElement.clientHeight > gameCanvas.clientHeight
-  // ) {
-  //   return true;
-  // }
-
-  // Player 1 Boundary check
-  if (
-    direction === "upPlayer1" &&
-    currentPosition - MOVE_PIXEL_COUNT * 1.4 <= 0
-  ) {
-    return true;
-  }
-
-  if (
-    direction === "downPlayer1" &&
-    currentPosition + brickElement.clientHeight * 1 >= gameCanvas.clientHeight
-  ) {
-    return true;
-  }
-
-  if (direction === "up" && currentPosition - BALL_MOVE_PIXEL_COUNT < 0) {
-    return true;
-  }
-
-  if (
-    direction === "down" &&
-    currentPosition + 2 * BALL_MOVE_PIXEL_COUNT > gameCanvas.clientHeight
-  ) {
-    return true;
-  }
-
-  if (
-    direction === "right" &&
-    currentPosition + 2 * BALL_MOVE_PIXEL_COUNT > gameCanvas.clientWidth
-  ) {
-    return true;
-  }
-
-  if (direction === "left" && currentPosition - BALL_MOVE_PIXEL_COUNT < 0) {
-    return true;
-  }
-
-  return false;
-}
-
-function debounce(func, delay) {
-  let timeoutId;
-  return function () {
-    if (!timeoutId) {
-      func.apply(this, arguments);
-      timeoutId = setTimeout(() => {
-        timeoutId = null;
-      }, delay);
-    }
-  };
 }
 
 window.addEventListener("keydown", function (event) {
@@ -149,25 +74,6 @@ window.addEventListener("keydown", function (event) {
       break;
   }
 });
-
-var PAUSE = false;
-
-window["stopGame"] = () => {
-  freezeGame();
-};
-
-/**
- * Function to stop game and restart ball at center position
- */
-function freezeGame() {
-  // PAUSE = TRUE;
-  shouldFreezeBall = true;
-  const ball = document.getElementById("ball");
-  ball.style.top = 50 + "%";
-  ball.style.left = 50 + "%";
-  alert("GAME OVER");
-  return;
-}
 
 /**
  * Calls itself in a recursive way by using requestAnimationFrame for smooth element movement
@@ -253,19 +159,11 @@ function moveBallLeft() {
   requestAnimationFrame(moveBallLeft);
 }
 
-function freezeRestart() {
-  let ball = document.getElementById("ball");
-  shouldFreezeBall = true;
-  ball.style.top = "50%";
-  ball.style.left = "50%";
-}
-
-function startGame() {
-  shouldFreezeBall = false;
-  moveBallDiagonalLeftUp();
-}
-
-// keep this
+/**
+ * Calls up and left move functions to move the ball in the up-left direction.
+ * Uses requestAnimationFrame for smoother movement.
+ *
+ */
 function moveBallDiagonalLeftUp() {
   requestAnimationFrame(() => {
     moveBallUp();
@@ -273,26 +171,27 @@ function moveBallDiagonalLeftUp() {
   });
 }
 
-function moveBallRight() {
-  let ball = document.getElementById("ball");
-  const currentPosition = parseInt(window.getComputedStyle(ball).left);
-  if (boundariesExceeded(currentPosition, "right", ball)) {
-    return;
-  }
-  // -100 because in the HTML coordinate system + is downwards and - is upwards
-  requestAnimationFrame(() => {
-    ball.style.left = currentPosition + BALL_MOVE_PIXEL_COUNT + "px";
-  });
+/**
+ * Resets freeze boolean and starts ball movement
+ */
+function startGame() {
+  shouldFreezeBall = false;
+  moveBallDiagonalLeftUp();
 }
 
-function moveBallDiagonalRight() {
-  let ball = document.getElementById("ball");
-  const currentPosition = parseInt(window.getComputedStyle(ball).left);
-  if (boundariesExceeded(currentPosition, "right", ball)) {
-    return;
-  }
-  // -100 because in the HTML coordinate system + is downwards and - is upwards
-  requestAnimationFrame(() => {
-    ball.style.left = currentPosition + BALL_MOVE_PIXEL_COUNT + "px";
-  });
+// Makes the function accessible for debugging on console
+window["stopGame"] = () => {
+  freezeGame();
+};
+
+/**
+ * Function to stop game and restart ball at center position
+ */
+function freezeGame() {
+  shouldFreezeBall = true;
+  const ball = document.getElementById("ball");
+  ball.style.top = 50 + "%";
+  ball.style.left = 50 + "%";
+  alert("GAME OVER");
+  return;
 }
