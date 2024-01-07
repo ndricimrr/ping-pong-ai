@@ -33,13 +33,10 @@ function moveUp(index) {
 }
 
 function moveDown(index) {
-  let playerBrick = document.getElementsByClassName("brick")[index];
+  const playerBrick = document.getElementsByClassName("brick")[index];
   const currentPosition = parseInt(window.getComputedStyle(playerBrick).top);
-  var gameCanvas = playerBrick.parentElement; // Assuming the gameCanvas is the direct parent
+  const gameCanvas = playerBrick.parentElement; // Assuming the gameCanvas is the direct parent
 
-  // if (
-  //   index === 1
-  // ) {
   if (
     currentPosition + playerBrick.clientHeight + MOVE_PIXEL_COUNT >
     gameCanvas.clientHeight
@@ -139,28 +136,9 @@ window.addEventListener("keydown", function (event) {
     case "s":
       moveDown(0);
       break;
-    // case "a":
-    //   moveBallLeft();
-    //   break;
-    // case "d":
-    //   moveBallRight();
-    //   break;
     case "g":
       startGame();
       break;
-    // case "q":
-    //   moveBallDiagonalLeftUp();
-    //   break;
-    // case "e":
-    //   moveBallDiagonalRightUp();
-    //   break;
-    // case "z":
-    //   moveBallDiagonalLeftDown();
-    //   break;
-    // case "c":
-    //   moveBallDiagonalRightDown();
-    //   break;
-
     case "ArrowDown":
       moveDown(1);
       break;
@@ -216,9 +194,6 @@ function moveBallUp() {
   const player2Top = parseInt(window.getComputedStyle(player2).top);
   const player2Left = parseInt(window.getComputedStyle(player2).left);
 
-  const player1 = document.getElementById("player1");
-  const player1Top = parseInt(window.getComputedStyle(player1).top);
-
   // if ball touches player 2
   if (
     // ball is in between player 2 horizontal plane
@@ -235,9 +210,11 @@ function moveBallUp() {
     }
   }
 
+  const player1 = document.getElementById("player1");
+  const player1Top = parseInt(window.getComputedStyle(player1).top);
   // if ball touches player 1
   if (
-    // ball is in between player 2 horizontal plane
+    // ball is in between player 1 horizontal plane
     currentPositionTop - player1Top + ball.clientHeight >= 0 &&
     currentPositionTop - player1Top <=
       player1.clientHeight + ball.clientHeight &&
@@ -256,16 +233,19 @@ function moveBallUp() {
   requestAnimationFrame(moveBallUp);
 }
 
-// KEEP THIS ONE ONLY: BOUNCE LEFT then RIGHT
+/**
+ * Recursively calls itself by using requestAnimationFrame to smoothly move the ball to the left
+ * @returns void when function needs to drop out of recursion
+ */
 function moveBallLeft() {
   let ball = document.getElementById("ball");
   const currentPosition = parseInt(window.getComputedStyle(ball).left);
+  // Freeze the game when reaching the left or right boundary
   if (
     shouldFreezeBall ||
     currentPosition <= 0 ||
     currentPosition + ball.clientHeight >= ball.parentElement.clientWidth
   ) {
-    // Reverse the direction when reaching the top or bottom boundary
     freezeGame();
     return;
   }
@@ -290,18 +270,6 @@ function moveBallDiagonalLeftUp() {
   requestAnimationFrame(() => {
     moveBallUp();
     moveBallLeft();
-  });
-}
-
-function moveBallUpDown() {
-  let ball = document.getElementById("ball");
-  const currentPosition = parseInt(window.getComputedStyle(ball).top);
-  if (boundariesExceeded(currentPosition, "down", ball)) {
-    BALL_MOVE_PIXEL_COUNT *= -1;
-  }
-  // -100 because in the HTML coordinate system + is downwards and - is upwards
-  requestAnimationFrame(() => {
-    ball.style.top = currentPosition - BALL_MOVE_PIXEL_COUNT + "px";
   });
 }
 
