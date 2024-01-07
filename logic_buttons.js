@@ -197,6 +197,10 @@ function endGame() {
   const ball = document.getElementById("ball");
   ball.style.top = 50 + "%";
   ball.style.left = 50 + "%";
+  const p1_points_field = document.getElementById("p1-points");
+  const p2_points_field = document.getElementById("p2-points");
+  p1_points_field.innerHTML = p1_points;
+  p2_points_field.innerHTML = p2_points;
   alert("GAME OVER");
   return;
 }
