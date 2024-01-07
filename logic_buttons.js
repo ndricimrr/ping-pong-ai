@@ -3,8 +3,10 @@ var MOVE_PIXEL_COUNT = 95;
 var BALL_MOVE_PIXEL_COUNT_L_R = 100;
 var BALL_MOVE_PIXEL_COUNT_U_D = BALL_MOVE_PIXEL_COUNT_L_R;
 var BALL_MOVE_PIXEL_COUNT = BALL_MOVE_PIXEL_COUNT_L_R;
-
 var shouldFreezeBall = true;
+
+var p1_points = 0;
+var p2_points = 0;
 
 /**
  * Moves player with index up an MOVE_PIXEL_COUNT amount of pixels
@@ -147,12 +149,15 @@ function moveBallLeft() {
   let ball = document.getElementById("ball");
   const currentPosition = parseInt(window.getComputedStyle(ball).left);
   // Freeze the game when reaching the left or right boundary
-  if (
-    shouldFreezeBall ||
-    currentPosition <= 0 ||
-    currentPosition + ball.clientHeight >= ball.parentElement.clientWidth
-  ) {
-    freezeGame();
+  if (currentPosition <= 0) {
+    p2_points++;
+    endGame();
+    return;
+  }
+
+  if (currentPosition + ball.clientHeight >= ball.parentElement.clientWidth) {
+    p1_points++;
+    endGame();
     return;
   }
   ball.style.left = currentPosition - BALL_MOVE_PIXEL_COUNT_L_R + "px";
@@ -181,13 +186,13 @@ function startGame() {
 
 // Makes the function accessible for debugging on console
 window["stopGame"] = () => {
-  freezeGame();
+  endGame();
 };
 
 /**
  * Function to stop game and restart ball at center position
  */
-function freezeGame() {
+function endGame() {
   shouldFreezeBall = true;
   const ball = document.getElementById("ball");
   ball.style.top = 50 + "%";

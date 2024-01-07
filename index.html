@@ -38,6 +38,22 @@
       border-radius: 20px;
       transition: 0.3s ease; /* Adding smooth transition */
     }
+
+    .score-card {
+      width: 50vw;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .p1-score {
+      font-size: large;
+      width: auto;
+    }
+
+    .p2-score {
+      font-size: large;
+      width: auto;
+    }
   </style>
 
   <body>
@@ -49,12 +65,17 @@
       <div style="left: 99%" id="player2" class="brick"></div>
     </div>
 
-    <div id="ballTop">BallTop:</div>
+    <div class="score-card">
+      <div class="p1-score">
+        Player 1: <b><span id="score-val-1">0</span></b>
+      </div>
 
-    <div id="ballTop2">BallTopCont:</div>
+      <div class="p2-score">
+        Player 2: <b><span id="score-val-1">0</span></b>
+      </div>
+    </div>
 
     <br />
-    <div id="playerTop">PlayerTop:</div>
 
     <!-- <div style="margin-top: 200px; margin-left: 30%">
       <div style="display: inline">
