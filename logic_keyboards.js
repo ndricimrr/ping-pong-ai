@@ -194,6 +194,7 @@ window["stopGame"] = () => {
  */
 function endGame() {
   shouldFreezeBall = true;
+
   const ball = document.getElementById("ball");
   ball.style.top = 50 + "%";
   ball.style.left = 50 + "%";

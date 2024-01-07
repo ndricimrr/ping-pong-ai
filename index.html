@@ -9,6 +9,15 @@
     player.displayPlayerInfo();
   </script>
   <style>
+    body {
+      text-align: center;
+    }
+
+    .container {
+      display: inline-block;
+      margin: 0 auto;
+    }
+
     .brick {
       height: 20%;
       width: 1%;
@@ -65,21 +74,23 @@
   </style>
 
   <body>
-    <h1>Ping Pong vs AI</h1>
+    <div class="container">
+      <h1>Ping Pong vs AI</h1>
 
-    <div class="gameCanvas" id="gameCanvas">
-      <div id="player1" class="brick"></div>
-      <div id="ball" class="ball"></div>
-      <div style="left: 99%" id="player2" class="brick"></div>
-    </div>
-
-    <div class="score-card">
-      <div class="p1-score">
-        Player 1: <b><span id="p1-points">0</span></b>
+      <div class="gameCanvas" id="gameCanvas">
+        <div id="player1" class="brick"></div>
+        <div id="ball" class="ball"></div>
+        <div style="left: 99%" id="player2" class="brick"></div>
       </div>
 
-      <div class="p2-score">
-        Player 2: <b><span id="p2-points">0</span></b>
+      <div class="score-card">
+        <div class="p1-score">
+          Player 1: <b><span id="p1-points">0</span></b>
+        </div>
+
+        <div class="p2-score">
+          Player 2: <b><span id="p2-points">0</span></b>
+        </div>
       </div>
     </div>
   </body>
