@@ -1,7 +1,6 @@
-var MOVE_PIXEL_COUNT = 70;
+var MOVE_PIXEL_COUNT = 105;
 
-
-var BALL_MOVE_PIXEL_COUNT_L_R = 120;
+var BALL_MOVE_PIXEL_COUNT_L_R = 210;
 var BALL_MOVE_PIXEL_COUNT_U_D = BALL_MOVE_PIXEL_COUNT_L_R;
 
 var BALL_MOVE_PIXEL_COUNT = BALL_MOVE_PIXEL_COUNT_L_R;
@@ -14,7 +13,7 @@ var isAnimating2 = false;
 /**
  * Moves player with index up an MOVE_PIXEL_COUNT amount of pixels
  * @param {*} index player index
- * @returns 
+ * @returns
  */
 function moveUp(index) {
   let playerBrick = document.getElementsByClassName("brick")[index];
@@ -25,21 +24,17 @@ function moveUp(index) {
   console.log("---");
 
   // Player 2 Boundary check
- 
-    if (
-      currentPosition <= 0
-    ) {
-      return;
-    }
 
-    if (
-      currentPosition - MOVE_PIXEL_COUNT <= 0
-    ) {
-      playerBrick.style.top = 0 + "px";
-      return;
-    }
+  if (currentPosition <= 0) {
+    return;
+  }
+
+  if (currentPosition - MOVE_PIXEL_COUNT <= 0) {
+    playerBrick.style.top = 0 + "px";
+    return;
+  }
   // }
-  
+
   // -100 because in the HTML coordinate system + is downwards and - is upwards
   requestAnimationFrame(() => {
     playerBrick.style.top = currentPosition - MOVE_PIXEL_COUNT + "px";
@@ -52,12 +47,16 @@ function moveDown(index) {
   var gameCanvas = playerBrick.parentElement; // Assuming the gameCanvas is the direct parent
 
   // if (
-  //   index === 1 
+  //   index === 1
   // ) {
-    if (currentPosition + playerBrick.clientHeight + MOVE_PIXEL_COUNT > gameCanvas.clientHeight ) {
-      playerBrick.style.top = gameCanvas.clientHeight - playerBrick.clientHeight + "px";
-      return;
-    }
+  if (
+    currentPosition + playerBrick.clientHeight + MOVE_PIXEL_COUNT >
+    gameCanvas.clientHeight
+  ) {
+    playerBrick.style.top =
+      gameCanvas.clientHeight - playerBrick.clientHeight + "px";
+    return;
+  }
   // }
 
   // +100 because in the HTML coordinate system + is downwards and - is upwards
@@ -103,8 +102,6 @@ function boundariesExceeded(currentPosition, direction, brickElement) {
   ) {
     return true;
   }
-
-
 
   if (direction === "up" && currentPosition - BALL_MOVE_PIXEL_COUNT < 0) {
     return true;
@@ -227,7 +224,6 @@ window.addEventListener("keyupsadsad", function (event) {
       if (boundariesExceeded(cp01, "upPlayer1", brick01)) {
         requestAnimationFrame(() => {
           brick01.style.top = childHeight01 / 2 + "px";
-
         });
       }
       break;
@@ -273,21 +269,19 @@ function moveBallDown() {
 
 var PAUSE = false;
 
-  window['stopGame'] = ()=>{
-    freezeGame();
-  }
+window["stopGame"] = () => {
+  freezeGame();
+};
 
-
-  function freezeGame(){
-    // PAUSE = TRUE;
-    shouldFreezeBall = true;
-    const ball = document.getElementById("ball");
-    ball.style.top = 50 + "%"
-    ball.style.left = 50 + "%"
-    alert("GAME OVER");
-    return;
-
-  }
+function freezeGame() {
+  // PAUSE = TRUE;
+  shouldFreezeBall = true;
+  const ball = document.getElementById("ball");
+  ball.style.top = 50 + "%";
+  ball.style.left = 50 + "%";
+  alert("GAME OVER");
+  return;
+}
 
 // KEEP THIS ONE ONLY : BOUNCE UP/DOWN
 function moveBallUp() {
@@ -313,18 +307,17 @@ function moveBallUp() {
   let player1 = document.getElementById("player1");
   const player1Top = parseInt(window.getComputedStyle(player1).top);
 
-
   // if ball touches player 2
   if (
     // ball is in between player 2 horizontal plane
-    ((currentPositionTop - player2Top + ball.clientHeight) >= 0 ) &&
-    ((currentPositionTop - player2Top) <= player2.clientHeight + ball.clientHeight) &&
-    ( (currentPositionLeft + ball.clientWidth - player2Left ) >= 0)
+    currentPositionTop - player2Top + ball.clientHeight >= 0 &&
+    currentPositionTop - player2Top <=
+      player2.clientHeight + ball.clientHeight &&
+    currentPositionLeft + ball.clientWidth - player2Left >= 0
   ) {
     player2.style.backgroundColor = "blue";
     BALL_MOVE_PIXEL_COUNT_L_R *= -1;
-  }
-  else {
+  } else {
     if (player2.style.backgroundColor !== "black") {
       player2.style.backgroundColor = "black";
     }
@@ -333,14 +326,14 @@ function moveBallUp() {
   // if ball touches player 1
   if (
     // ball is in between player 2 horizontal plane
-    ((currentPositionTop  - player1Top  + ball.clientHeight ) >= 0) &&
-    ((currentPositionTop - player1Top) <= player1.clientHeight + ball.clientHeight) &&
-    ( (currentPositionLeft - player1.clientWidth) <= 0)
+    currentPositionTop - player1Top + ball.clientHeight >= 0 &&
+    currentPositionTop - player1Top <=
+      player1.clientHeight + ball.clientHeight &&
+    currentPositionLeft - player1.clientWidth <= 0
   ) {
     player1.style.backgroundColor = "green";
     BALL_MOVE_PIXEL_COUNT_L_R *= -1;
-  }
-  else {
+  } else {
     if (player1.style.backgroundColor !== "black") {
       player1.style.backgroundColor = "black";
     }
@@ -355,10 +348,14 @@ function moveBallUp() {
 function moveBallLeft() {
   let ball = document.getElementById("ball");
   const currentPosition = parseInt(window.getComputedStyle(ball).left);
-  if (shouldFreezeBall || currentPosition <= 0 || currentPosition + ball.clientHeight >= ball.parentElement.clientWidth) {
+  if (
+    shouldFreezeBall ||
+    currentPosition <= 0 ||
+    currentPosition + ball.clientHeight >= ball.parentElement.clientWidth
+  ) {
     // Reverse the direction when reaching the top or bottom boundary
     freezeGame();
-    return
+    return;
   }
   ball.style.left = currentPosition - BALL_MOVE_PIXEL_COUNT_L_R + "px";
   requestAnimationFrame(moveBallLeft);
@@ -376,10 +373,8 @@ function startGame() {
   moveBallDiagonalLeftUp();
 }
 
-
 // keep this
 function moveBallDiagonalLeftUp() {
-
   requestAnimationFrame(() => {
     moveBallUp();
     moveBallLeft();
