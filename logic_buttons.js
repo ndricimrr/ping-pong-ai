@@ -1,6 +1,6 @@
-var MOVE_PIXEL_COUNT = 105;
+var MOVE_PIXEL_COUNT = 95;
 
-var BALL_MOVE_PIXEL_COUNT_L_R = 210;
+var BALL_MOVE_PIXEL_COUNT_L_R = 100;
 var BALL_MOVE_PIXEL_COUNT_U_D = BALL_MOVE_PIXEL_COUNT_L_R;
 
 var BALL_MOVE_PIXEL_COUNT = BALL_MOVE_PIXEL_COUNT_L_R;
@@ -178,6 +178,9 @@ window["stopGame"] = () => {
   freezeGame();
 };
 
+/**
+ * Function to stop game and restart ball at center position
+ */
 function freezeGame() {
   // PAUSE = TRUE;
   shouldFreezeBall = true;
@@ -188,28 +191,32 @@ function freezeGame() {
   return;
 }
 
-// KEEP THIS ONE ONLY : BOUNCE UP/DOWN
+/**
+ * Calls itself in a recursive way by using requestAnimationFrame for smooth element movement
+ *
+ * @returns void if ball should freeze
+ */
 function moveBallUp() {
   if (shouldFreezeBall) {
     return;
   }
-  let ball = document.getElementById("ball");
+  const ball = document.getElementById("ball");
   const currentPositionTop = parseInt(window.getComputedStyle(ball).top);
   const currentPositionLeft = parseInt(window.getComputedStyle(ball).left);
 
+  // Reverse the direction when reaching the top or bottom boundary
   if (
     currentPositionTop <= 0 ||
     currentPositionTop >= ball.parentElement.clientHeight - ball.clientHeight
   ) {
-    // Reverse the direction when reaching the top or bottom boundary
     BALL_MOVE_PIXEL_COUNT_U_D *= -1;
   }
 
-  let player2 = document.getElementById("player2");
+  const player2 = document.getElementById("player2");
   const player2Top = parseInt(window.getComputedStyle(player2).top);
   const player2Left = parseInt(window.getComputedStyle(player2).left);
 
-  let player1 = document.getElementById("player1");
+  const player1 = document.getElementById("player1");
   const player1Top = parseInt(window.getComputedStyle(player1).top);
 
   // if ball touches player 2
