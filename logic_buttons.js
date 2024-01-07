@@ -7,9 +7,6 @@ var BALL_MOVE_PIXEL_COUNT = BALL_MOVE_PIXEL_COUNT_L_R;
 
 var shouldFreezeBall = true;
 
-var isAnimating1 = false;
-var isAnimating2 = false;
-
 /**
  * Moves player with index up an MOVE_PIXEL_COUNT amount of pixels
  * @param {*} index player index
@@ -18,12 +15,6 @@ var isAnimating2 = false;
 function moveUp(index) {
   let playerBrick = document.getElementsByClassName("brick")[index];
   const currentPosition = parseInt(window.getComputedStyle(playerBrick).top);
-
-  // console.log("direction:", direction);
-  console.log("currentPosition:", currentPosition);
-  console.log("---");
-
-  // Player 2 Boundary check
 
   if (currentPosition <= 0) {
     return;
@@ -180,92 +171,6 @@ window.addEventListener("keydown", function (event) {
       break;
   }
 });
-
-window.addEventListener("keyupsadsad", function (event) {
-  // return;
-  switch (event.key) {
-    case "ArrowDown":
-      let brick = document.getElementsByClassName("brick")[1];
-      console.log(brick, "down");
-      let brickParent = brick.parentElement;
-      const parentHeight = brickParent.clientHeight;
-      const childHeight = brick.clientHeight;
-
-      const cp = parseInt(window.getComputedStyle(brick).top);
-      if (boundariesExceeded(cp, "downPlayer2", brick)) {
-        requestAnimationFrame(() => {
-          brick.style.top = `${parentHeight - childHeight / 2}px`;
-        });
-      }
-      break;
-    case "ArrowUp":
-      let brick1 = document.getElementsByClassName("brick")[1];
-      console.log(brick1, "up");
-
-      let brickParent1 = brick1.parentElement;
-      const parentHeight1 = brickParent1.clientHeight;
-      const childHeight1 = brick1.clientHeight;
-
-      const cp1 = parseInt(window.getComputedStyle(brick1).top);
-      if (boundariesExceeded(cp1, "upPlayer2", brick1)) {
-        requestAnimationFrame(() => {
-          brick1.style.top = childHeight1 / 2 + "px";
-        });
-      }
-      break;
-    case "w":
-      let brick01 = document.getElementsByClassName("brick")[0];
-      console.log(brick01, "down");
-      let brickParent01 = brick01.parentElement;
-      const parentHeight01 = brickParent01.clientHeight;
-      const childHeight01 = brick01.clientHeight;
-
-      const cp01 = parseInt(window.getComputedStyle(brick01).top);
-      if (boundariesExceeded(cp01, "upPlayer1", brick01)) {
-        requestAnimationFrame(() => {
-          brick01.style.top = childHeight01 / 2 + "px";
-        });
-      }
-      break;
-
-    case "s":
-      let brick02 = document.getElementsByClassName("brick")[0];
-      console.log(brick02, "up");
-
-      let brickParent02 = brick02.parentElement;
-      const parentHeight02 = brickParent02.clientHeight;
-      const childHeight02 = brick02.clientHeight;
-
-      const cp02 = parseInt(window.getComputedStyle(brick02).top);
-      if (boundariesExceeded(cp02, "downPlayer1", brick02)) {
-        requestAnimationFrame(() => {
-          brick02.style.top = `${parentHeight02 - childHeight02 / 2}px`;
-        });
-      }
-      break;
-  }
-});
-
-function moveBallDown() {
-  let ball = document.getElementById("ball");
-  const currentPosition = parseInt(window.getComputedStyle(ball).top);
-
-  if (boundariesExceeded(currentPosition, "down", ball)) {
-    let count = 0;
-    const intervalId = setInterval(() => {
-      moveBallUp();
-      if (count > 40) {
-        clearInterval(intervalId);
-      }
-      count++;
-    }, 100);
-    return;
-  }
-  // -100 because in the HTML coordinate system + is downwards and - is upwards
-  requestAnimationFrame(() => {
-    ball.style.top = currentPosition + BALL_MOVE_PIXEL_COUNT + "px";
-  });
-}
 
 var PAUSE = false;
 
