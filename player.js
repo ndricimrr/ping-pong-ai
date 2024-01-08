@@ -29,10 +29,18 @@ class Player {
     this.height = height;
   }
 
+  /**
+   * Change player's name
+   * @param {string} name name to change to
+   */
   setName(name) {
     this.name = name;
   }
 
+  /**
+   * Set the speed in which the players brick moves up/down
+   * @param {number} speed in pixels per brick movement
+   */
   setSpeed(speed) {
     this.speed = speed;
   }
