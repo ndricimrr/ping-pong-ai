@@ -1,5 +1,6 @@
 class Player {
   points = 0;
+  speedPixels = 100;
 
   constructor(name, domId, height, width) {
     this.name = name;
@@ -10,6 +11,22 @@ class Player {
 
   displayPlayerInfo() {
     console.log("Player Data:\n" + "Name: " + this.name);
+  }
+
+  setWidth(width) {
+    this.width = width;
+  }
+
+  setHeight(height) {
+    this.height = height;
+  }
+
+  setName(name) {
+    this.name = name;
+  }
+
+  setSpeed(speed) {
+    this.speed = speed;
   }
 
   /**
