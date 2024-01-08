@@ -13,10 +13,18 @@ class Player {
     console.log("Player Data:\n" + "Name: " + this.name);
   }
 
+  /**
+   * Set width of player brick
+   * @param {number} width in pixels
+   */
   setWidth(width) {
     this.width = width;
   }
 
+  /**
+   * Height of the player brick
+   * @param {number} height in pixels
+   */
   setHeight(height) {
     this.height = height;
   }
