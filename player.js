@@ -1,12 +1,14 @@
 class Player {
   points = 0;
   speedPixels = 100;
+  element;
 
   constructor(name, domId, height, width) {
     this.name = name;
     this.domId = domId;
     this.height = height;
     this.width = width;
+    this.element = document.getElementById(domId);
   }
 
   displayPlayerInfo() {
@@ -15,18 +17,20 @@ class Player {
 
   /**
    * Set width of player brick
-   * @param {number} width in pixels
+   * @param {string} width in pixels
    */
   setWidth(width) {
     this.width = width;
+    this.element.style.width = width;
   }
 
   /**
    * Height of the player brick
-   * @param {number} height in pixels
+   * @param {string} height in pixels/%/other
    */
   setHeight(height) {
     this.height = height;
+    this.element.style.height = width;
   }
 
   /**
