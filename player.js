@@ -1,6 +1,11 @@
 class Player {
-  constructor(name) {
+  points = 0;
+
+  constructor(name, domId, height, width) {
     this.name = name;
+    this.domId = domId;
+    this.height = height;
+    this.width = width;
   }
 
   displayPlayerInfo() {
