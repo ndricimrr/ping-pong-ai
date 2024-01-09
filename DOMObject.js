@@ -3,6 +3,16 @@
  */
 
 class DOMObject {
+  speedPixels = 100;
+  element;
+
+  constructor(domId, height, width) {
+    this.domId = domId;
+    this.height = height;
+    this.width = width;
+    this.element = document.getElementById(domId);
+  }
+
   /**
    * Set width of player brick
    * @param {string} width in pixels
