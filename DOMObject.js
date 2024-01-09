@@ -37,4 +37,12 @@ class DOMObject {
   getDomElement() {
     return this.element();
   }
+
+  /**
+   * Set the speed in which the players brick moves up/down
+   * @param {number} speed in pixels per brick movement
+   */
+  setSpeed(speed) {
+    this.speed = speed;
+  }
 }
