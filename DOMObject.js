@@ -30,4 +30,8 @@ class DOMObject {
     this.height = height;
     this.element.style.height = width;
   }
+
+  getDomElement() {
+    return this.element();
+  }
 }
