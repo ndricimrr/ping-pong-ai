@@ -31,6 +31,10 @@ class DOMObject {
     this.element.style.height = width;
   }
 
+  /**
+   * Retrieves the current element created
+   * @returns dom element
+   */
   getDomElement() {
     return this.element();
   }
