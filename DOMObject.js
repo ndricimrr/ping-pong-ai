@@ -5,7 +5,6 @@
 class DOMObject {
   speedPixels = 100;
   element;
-
   constructor(domId, height, width) {
     this.domId = domId;
     this.height = height;
