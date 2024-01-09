@@ -1,4 +1,4 @@
-class Player {
+class Player extends DOMObject {
   points = 0;
   speedPixels = 100;
   element;
@@ -16,37 +16,11 @@ class Player {
   }
 
   /**
-   * Set width of player brick
-   * @param {string} width in pixels
-   */
-  setWidth(width) {
-    this.width = width;
-    this.element.style.width = width;
-  }
-
-  /**
-   * Height of the player brick
-   * @param {string} height in pixels/%/other
-   */
-  setHeight(height) {
-    this.height = height;
-    this.element.style.height = width;
-  }
-
-  /**
    * Change player's name
    * @param {string} name name to change to
    */
   setName(name) {
     this.name = name;
-  }
-
-  /**
-   * Set the speed in which the players brick moves up/down
-   * @param {number} speed in pixels per brick movement
-   */
-  setSpeed(speed) {
-    this.speed = speed;
   }
 
   /**
