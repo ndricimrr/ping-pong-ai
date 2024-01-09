@@ -1,4 +1,20 @@
 class Ball extends DOMObject {
+  _player1Element;
+
+  get player1Element() {
+    return this._player1Element;
+  }
+
+  _player2Element;
+  get player2Element() {
+    return this._player2Element;
+  }
+
+  constructor(player1_DomID, player2_DomID) {
+    this._player1Element = document.getElementById(player1_DomID);
+    this._player2Element = document.getElementById(player2_DomID);
+  }
+
   /**
    * Calls itself in a recursive way by using requestAnimationFrame for smooth element movement
    *
@@ -8,7 +24,7 @@ class Ball extends DOMObject {
     if (shouldFreezeBall) {
       return;
     }
-    const ball = document.getElementById("ball");
+    const ball = this.getDomElement();
     const currentPositionTop = parseInt(window.getComputedStyle(ball).top);
     const currentPositionLeft = parseInt(window.getComputedStyle(ball).left);
 
@@ -20,7 +36,7 @@ class Ball extends DOMObject {
       BALL_MOVE_PIXEL_COUNT_U_D *= -1;
     }
 
-    const player2 = document.getElementById("player2");
+    const player2 = this.player2Element;
     const player2Top = parseInt(window.getComputedStyle(player2).top);
     const player2Left = parseInt(window.getComputedStyle(player2).left);
 
@@ -40,7 +56,7 @@ class Ball extends DOMObject {
       }
     }
 
-    const player1 = document.getElementById("player1");
+    const player1 = this.player1Element;
     const player1Top = parseInt(window.getComputedStyle(player1).top);
     // if ball touches player 1
     if (
@@ -68,7 +84,7 @@ class Ball extends DOMObject {
    * @returns void when function needs to drop out of recursion
    */
   moveBallLeft() {
-    let ball = document.getElementById("ball");
+    let ball = this.getDomElement();
     const currentPosition = parseInt(window.getComputedStyle(ball).left);
     // Freeze the game when reaching the left or right boundary
     if (currentPosition <= 0) {
