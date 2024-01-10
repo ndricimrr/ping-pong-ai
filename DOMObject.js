@@ -10,10 +10,11 @@ class DOMObject {
     this.height = height;
     this.width = width;
 
-    document.addEventListener("DOMContentLoaded", () => {
+    // document.addEventListener("DOMContentLoaded", () => {
+    window.onload = () => {
       this.element = document.getElementById(domId);
       console.log(document.getElementById(domId), document, domId);
-    });
+    };
   }
 
   /**
@@ -39,7 +40,7 @@ class DOMObject {
    * @returns dom element
    */
   getDomElement() {
-    return this.element;
+    return document.getElementById(this.domId);
   }
 
   /**

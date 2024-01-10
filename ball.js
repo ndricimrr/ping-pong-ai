@@ -2,16 +2,18 @@ class Ball extends DOMObject {
   _player1Element;
 
   get player1Element() {
-    return this._player1Element;
+    return document.getElementById(this.player1_DomID);
   }
 
   _player2Element;
   get player2Element() {
-    return this._player2Element;
+    return document.getElementById(this.player2_DomID);
   }
 
   constructor(player1_DomID, player2_DomID) {
     super("ball", 20, 20);
+    this.player1_DomID = player1_DomID;
+    this.player2_DomID = player2_DomID;
     this._player1Element = document.getElementById(player1_DomID);
     this._player2Element = document.getElementById(player2_DomID);
   }
@@ -77,7 +79,7 @@ class Ball extends DOMObject {
 
     ball.style.top = currentPositionTop - BALL_MOVE_PIXEL_COUNT_U_D + "px";
 
-    requestAnimationFrame(moveBallUp);
+    requestAnimationFrame(this.moveBallUp);
   }
 
   /**
@@ -100,7 +102,7 @@ class Ball extends DOMObject {
       return;
     }
     ball.style.left = currentPosition - BALL_MOVE_PIXEL_COUNT_L_R + "px";
-    requestAnimationFrame(moveBallLeft);
+    requestAnimationFrame(this.moveBallLeft);
   }
 
   /**
