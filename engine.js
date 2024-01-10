@@ -7,9 +7,9 @@ var shouldFreezeBall = true;
 var p1_points = 0;
 var p2_points = 0;
 
-let ball = new Ball("ball", 50, 50);
-let player1 = new Player("player1", "20%", "1%");
-let player2 = new Player("player2", "20%", "1%");
+var ball = new Ball(".player1", ".player2");
+var player1 = new Player(".player1", "20%", "1%");
+var player2 = new Player(".player2", "20%", "1%");
 
 /**
  * Resets freeze boolean and starts ball movement
@@ -17,6 +17,7 @@ let player2 = new Player("player2", "20%", "1%");
 function startGame() {
   shouldFreezeBall = false;
   ball.moveBallDiagonalLeftUp();
+  console.log("Start Game");
 }
 
 // Makes the function accessible for debugging on console

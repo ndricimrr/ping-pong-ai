@@ -11,6 +11,7 @@ class Ball extends DOMObject {
   }
 
   constructor(player1_DomID, player2_DomID) {
+    super(".ball", 20, 20);
     this._player1Element = document.getElementById(player1_DomID);
     this._player2Element = document.getElementById(player2_DomID);
   }

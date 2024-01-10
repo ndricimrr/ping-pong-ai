@@ -4,6 +4,7 @@ class Player extends DOMObject {
   element;
 
   constructor(name, domId, height, width) {
+    super(domId, height, width);
     this.name = name;
     this.domId = domId;
     this.height = height;
