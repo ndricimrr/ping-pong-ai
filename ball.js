@@ -108,8 +108,8 @@ class Ball extends DOMObject {
    */
   moveBallDiagonalLeftUp() {
     requestAnimationFrame(() => {
-      moveBallUp();
-      moveBallLeft();
+      this.moveBallUp();
+      this.moveBallLeft();
     });
   }
 }
