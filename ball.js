@@ -11,7 +11,7 @@ class Ball extends DOMObject {
   }
 
   constructor(player1_DomID, player2_DomID) {
-    super(".ball", 20, 20);
+    super("ball", 20, 20);
     this._player1Element = document.getElementById(player1_DomID);
     this._player2Element = document.getElementById(player2_DomID);
   }
@@ -27,6 +27,7 @@ class Ball extends DOMObject {
       return;
     }
     const ball = this.getDomElement();
+    console.log("test ball up", ball, typeof ball);
     const currentPositionTop = parseInt(window.getComputedStyle(ball).top);
     const currentPositionLeft = parseInt(window.getComputedStyle(ball).left);
     // Reverse the direction when reaching the top or bottom boundary

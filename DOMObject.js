@@ -9,8 +9,11 @@ class DOMObject {
     this.domId = domId;
     this.height = height;
     this.width = width;
-    this.element = document.getElementById(domId);
-    console.log(this.element, document.getElementById(domId), document, domId);
+
+    document.addEventListener("DOMContentLoaded", () => {
+      this.element = document.getElementById(domId);
+      console.log(document.getElementById(domId), document, domId);
+    });
   }
 
   /**
