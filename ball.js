@@ -29,7 +29,7 @@ class Ball extends DOMObject {
       return;
     }
     const ball = this.getDomElement();
-    console.log("test ball up", ball, typeof ball);
+
     const currentPositionTop = parseInt(window.getComputedStyle(ball).top);
     const currentPositionLeft = parseInt(window.getComputedStyle(ball).left);
     // Reverse the direction when reaching the top or bottom boundary
@@ -79,7 +79,7 @@ class Ball extends DOMObject {
 
     ball.style.top = currentPositionTop - BALL_MOVE_PIXEL_COUNT_U_D + "px";
 
-    requestAnimationFrame(this.moveBallUp);
+    requestAnimationFrame(this.moveBallUp.bind(this));
   }
 
   /**
@@ -102,7 +102,7 @@ class Ball extends DOMObject {
       return;
     }
     ball.style.left = currentPosition - BALL_MOVE_PIXEL_COUNT_L_R + "px";
-    requestAnimationFrame(this.moveBallLeft);
+    requestAnimationFrame(this.moveBallLeft.bind(this));
   }
 
   /**
