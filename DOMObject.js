@@ -13,7 +13,6 @@ class DOMObject {
     // document.addEventListener("DOMContentLoaded", () => {
     window.onload = () => {
       this.element = document.getElementById(domId);
-      console.log(document.getElementById(domId), document, domId);
     };
   }
 

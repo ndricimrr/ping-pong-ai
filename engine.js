@@ -11,6 +11,12 @@ var ball = new Ball("player1", "player2");
 var player1 = new Player("Jimmy", "player1", "20%", "1%");
 var player2 = new Player("John", "player2", "20%", "1%");
 
+document.addEventListener("DOMContentLoaded", () => {
+  console.log(document.getElementById("p1-name"));
+  document.getElementById("p1-name").innerHTML = player1.getName();
+  document.getElementById("p2-name").innerHTML = player2.getName();
+});
+
 /**
  * Resets freeze boolean and starts ball movement
  */
@@ -37,12 +43,12 @@ function endGame() {
   const p1_points_field = document.getElementById("p1-points");
   const p2_points_field = document.getElementById("p2-points");
 
-  if (p1_points > p2_points && p1_points >= 5) {
-    alert("P1 WON");
+  if (p1_points > p2_points && p1_points >= 2) {
+    alert(player1.getName() + " WON");
     p1_points = 0;
     p2_points = 0;
-  } else if (p2_points > p1_points && p2_points >= 5) {
-    alert("P2 WON!");
+  } else if (p2_points > p1_points && p2_points >= 2) {
+    alert(player2.getName() + " WON!");
     p1_points = 0;
     p2_points = 0;
   } else {
