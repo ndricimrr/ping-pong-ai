@@ -16,7 +16,8 @@ class Ball extends DOMObject {
   }
 
   /**
-   * Calls itself in a recursive way by using requestAnimationFrame for smooth element movement
+   * Calls itself in a recursive way by using
+   * requestAnimationFrame for smooth element movement
    *
    * @returns void if ball should freeze
    */
@@ -27,7 +28,6 @@ class Ball extends DOMObject {
     const ball = this.getDomElement();
     const currentPositionTop = parseInt(window.getComputedStyle(ball).top);
     const currentPositionLeft = parseInt(window.getComputedStyle(ball).left);
-
     // Reverse the direction when reaching the top or bottom boundary
     if (
       currentPositionTop <= 0 ||
@@ -35,7 +35,6 @@ class Ball extends DOMObject {
     ) {
       BALL_MOVE_PIXEL_COUNT_U_D *= -1;
     }
-
     const player2 = this.player2Element;
     const player2Top = parseInt(window.getComputedStyle(player2).top);
     const player2Left = parseInt(window.getComputedStyle(player2).left);
