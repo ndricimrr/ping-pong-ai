@@ -51,19 +51,19 @@ function endGame() {
 window.addEventListener("keydown", function (event) {
   switch (event.key) {
     case "w":
-      moveUp(0);
+      player1.moveUp(0);
       break;
     case "s":
-      moveDown(0);
+      player1.moveDown(0);
       break;
     case "g":
       startGame();
       break;
     case "ArrowDown":
-      moveDown(1);
+      player2.moveDown(1);
       break;
     case "ArrowUp":
-      moveUp(1);
+      player2.moveUp(1);
       break;
     default:
       break;
