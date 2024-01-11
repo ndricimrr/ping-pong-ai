@@ -12,6 +12,10 @@ class Player extends DOMObject {
     this.element = document.getElementById(domId);
   }
 
+  /**
+   * Display info
+   *
+   */
   displayPlayerInfo() {
     console.log("Player Data:\n" + "Name: " + this.name);
   }
