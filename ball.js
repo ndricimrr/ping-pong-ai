@@ -1,3 +1,6 @@
+/**
+ * Class representing the moving ball
+ */
 class Ball extends DOMObject {
   _player1Element;
 

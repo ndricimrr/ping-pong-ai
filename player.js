@@ -16,6 +16,9 @@ class Player extends DOMObject {
     console.log("Player Data:\n" + "Name: " + this.name);
   }
 
+  /**
+   * @returns name of player
+   */
   getName() {
     console.log("name", this.name);
     return this.name;
