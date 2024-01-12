@@ -43,11 +43,11 @@ function endGame() {
   const p1_points_field = document.getElementById("p1-points");
   const p2_points_field = document.getElementById("p2-points");
 
-  if (p1_points > p2_points && p1_points >= 2) {
+  if (p1_points > p2_points && p1_points >= 5) {
     alert(player1.getName() + " WON");
     p1_points = 0;
     p2_points = 0;
-  } else if (p2_points > p1_points && p2_points >= 2) {
+  } else if (p2_points > p1_points && p2_points >= 5) {
     alert(player2.getName() + " WON!");
     p1_points = 0;
     p2_points = 0;
