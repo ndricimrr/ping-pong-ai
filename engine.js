@@ -88,15 +88,17 @@ function increaseSpeed() {
   if (BALL_MOVE_PIXEL_COUNT_U_D < 400 && BALL_MOVE_PIXEL_COUNT_L_R < 400) {
     BALL_MOVE_PIXEL_COUNT_U_D += 20;
     BALL_MOVE_PIXEL_COUNT_L_R += 20;
+    document.getElementById("ball-speed").innerHTML = BALL_MOVE_PIXEL_COUNT_L_R;
     console.log("BALL_MOVE_PIXEL_COUNT_U_D", BALL_MOVE_PIXEL_COUNT_U_D);
     console.log("BALL_MOVE_PIXEL_COUNT_L_R", BALL_MOVE_PIXEL_COUNT_L_R);
   }
 }
 
 function decreaseSpeed() {
-  if (BALL_MOVE_PIXEL_COUNT_U_D > 10 && BALL_MOVE_PIXEL_COUNT_L_R < 10) {
+  if (BALL_MOVE_PIXEL_COUNT_U_D > 40 && BALL_MOVE_PIXEL_COUNT_L_R > 40) {
     BALL_MOVE_PIXEL_COUNT_U_D -= 20;
     BALL_MOVE_PIXEL_COUNT_L_R -= 20;
+    document.getElementById("ball-speed").innerHTML = BALL_MOVE_PIXEL_COUNT_L_R;
     console.log("BALL_MOVE_PIXEL_COUNT_U_D", BALL_MOVE_PIXEL_COUNT_U_D);
     console.log("BALL_MOVE_PIXEL_COUNT_L_R", BALL_MOVE_PIXEL_COUNT_L_R);
   }
