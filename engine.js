@@ -83,3 +83,21 @@ window.addEventListener("keydown", function (event) {
       break;
   }
 });
+
+function increaseSpeed() {
+  if (BALL_MOVE_PIXEL_COUNT_U_D < 400 && BALL_MOVE_PIXEL_COUNT_L_R < 400) {
+    BALL_MOVE_PIXEL_COUNT_U_D += 20;
+    BALL_MOVE_PIXEL_COUNT_L_R += 20;
+    console.log("BALL_MOVE_PIXEL_COUNT_U_D", BALL_MOVE_PIXEL_COUNT_U_D);
+    console.log("BALL_MOVE_PIXEL_COUNT_L_R", BALL_MOVE_PIXEL_COUNT_L_R);
+  }
+}
+
+function decreaseSpeed() {
+  if (BALL_MOVE_PIXEL_COUNT_U_D > 10 && BALL_MOVE_PIXEL_COUNT_L_R < 10) {
+    BALL_MOVE_PIXEL_COUNT_U_D -= 20;
+    BALL_MOVE_PIXEL_COUNT_L_R -= 20;
+    console.log("BALL_MOVE_PIXEL_COUNT_U_D", BALL_MOVE_PIXEL_COUNT_U_D);
+    console.log("BALL_MOVE_PIXEL_COUNT_L_R", BALL_MOVE_PIXEL_COUNT_L_R);
+  }
+}
