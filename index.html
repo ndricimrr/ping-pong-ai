@@ -81,7 +81,16 @@
   <body>
     <div class="container">
       <h1>Ping Pong vs AI</h1>
-
+      <div>
+        Ball Speed: <b><span id="ball-speed"></span></b>
+        <button onclick="increaseSpeed()">Increase</button>
+        <button onclick="decreaseSpeed()">Decrease</button>
+      </div>
+      <div>
+        Player Speed: <b><span id="player-speed"></span></b>
+        <button onclick="increasePlayerSpeed()">Increase</button>
+        <button onclick="decreasePlayerSpeed()">Decrease</button>
+      </div>
       <div class="gameCanvas" id="gameCanvas">
         <div id="player1" class="brick"></div>
         <div id="ball" class="ball"></div>
@@ -98,17 +107,6 @@
           <span id="p2-name"></span>:
           <b><span id="p2-points"> 0</span></b>
         </div>
-      </div>
-      <div>
-        Ball Speed: <b><span id="ball-speed"></span></b>
-        <button onclick="increaseSpeed()">Increase</button>
-        <button onclick="decreaseSpeed()">Decrease</button>
-      </div>
-      <br />
-      <div>
-        Player Speed: <b><span id="player-speed"></span></b>
-        <button onclick="increasePlayerSpeed()">Increase</button>
-        <button onclick="decreasePlayerSpeed()">Decrease</button>
       </div>
     </div>
   </body>
