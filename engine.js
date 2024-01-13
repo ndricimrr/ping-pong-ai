@@ -11,6 +11,25 @@ var ball = new Ball("player1", "player2");
 var player1 = new Player("Jimmy", "player1", "20%", "1%");
 var player2 = new Player("John", "player2", "20%", "1%");
 
+var currentLevel = 0;
+var levels = [
+  {
+    ballSpeed: 100,
+  },
+  {
+    ballSpeed: 150,
+  },
+  {
+    ballSpeed: 200,
+  },
+  {
+    ballSpeed: 250,
+  },
+  {
+    ballSpeed: 300,
+  },
+];
+
 document.addEventListener("DOMContentLoaded", () => {
   console.log(document.getElementById("p1-name"));
   document.getElementById("p1-name").innerHTML = player1.getName();
@@ -39,9 +58,6 @@ window["stopGame"] = () => {
 function endGame() {
   shouldFreezeBall = true;
 
-  const ball = document.getElementById("ball");
-  ball.style.top = 50 + "%";
-  ball.style.left = 50 + "%";
   const p1_points_field = document.getElementById("p1-points");
   const p2_points_field = document.getElementById("p2-points");
 
@@ -58,6 +74,16 @@ function endGame() {
   }
   p1_points_field.innerHTML = p1_points;
   p2_points_field.innerHTML = p2_points;
+
+  ball.getDomElement().style.top = 50 + "%";
+  ball.getDomElement().style.left = 50 + "%";
+
+  ball.setSpeed(levels[currentLevel].ballSpeed);
+
+  currentLevel++;
+
+  document.getElementById("ball-speed").innerHTML = ball.getSpeed();
+
   return;
 }
 
@@ -91,8 +117,6 @@ function increaseSpeed() {
     BALL_MOVE_PIXEL_COUNT_U_D += 20;
     BALL_MOVE_PIXEL_COUNT_L_R += 20;
     document.getElementById("ball-speed").innerHTML = BALL_MOVE_PIXEL_COUNT_L_R;
-    console.log("BALL_MOVE_PIXEL_COUNT_U_D", BALL_MOVE_PIXEL_COUNT_U_D);
-    console.log("BALL_MOVE_PIXEL_COUNT_L_R", BALL_MOVE_PIXEL_COUNT_L_R);
   }
 }
 
@@ -101,8 +125,6 @@ function decreaseSpeed() {
     BALL_MOVE_PIXEL_COUNT_U_D -= 20;
     BALL_MOVE_PIXEL_COUNT_L_R -= 20;
     document.getElementById("ball-speed").innerHTML = BALL_MOVE_PIXEL_COUNT_L_R;
-    console.log("BALL_MOVE_PIXEL_COUNT_U_D", BALL_MOVE_PIXEL_COUNT_U_D);
-    console.log("BALL_MOVE_PIXEL_COUNT_L_R", BALL_MOVE_PIXEL_COUNT_L_R);
   }
 }
 
