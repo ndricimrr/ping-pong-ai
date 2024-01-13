@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log(document.getElementById("p1-name"));
   document.getElementById("p1-name").innerHTML = player1.getName();
   document.getElementById("p2-name").innerHTML = player2.getName();
+  document.getElementById("ball-speed").innerHTML = BALL_MOVE_PIXEL_COUNT_L_R;
+  document.getElementById("player-speed").innerHTML = player1.getSpeed();
 });
 
 /**
@@ -101,5 +103,21 @@ function decreaseSpeed() {
     document.getElementById("ball-speed").innerHTML = BALL_MOVE_PIXEL_COUNT_L_R;
     console.log("BALL_MOVE_PIXEL_COUNT_U_D", BALL_MOVE_PIXEL_COUNT_U_D);
     console.log("BALL_MOVE_PIXEL_COUNT_L_R", BALL_MOVE_PIXEL_COUNT_L_R);
+  }
+}
+
+function increasePlayerSpeed() {
+  if (player1.getSpeed() < 400 && player2.getSpeed() < 400) {
+    player1.setSpeed(player1.getSpeed() + 20);
+    player2.setSpeed(player2.getSpeed() + 20);
+    document.getElementById("player-speed").innerHTML = player1.getSpeed();
+  }
+}
+
+function decreasePlayerSpeed() {
+  if (player1.getSpeed() > 40 && player2.getSpeed() > 40) {
+    player1.setSpeed(player1.getSpeed() - 20);
+    player2.setSpeed(player2.getSpeed() - 20);
+    document.getElementById("player-speed").innerHTML = player1.getSpeed();
   }
 }

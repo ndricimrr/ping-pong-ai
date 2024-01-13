@@ -3,7 +3,7 @@
  */
 
 class DOMObject {
-  speedPixels = 100;
+  speed = 100;
   element;
   constructor(domId, height, width) {
     this.domId = domId;
@@ -48,6 +48,10 @@ class DOMObject {
    */
   setSpeed(speed) {
     this.speed = speed;
+  }
+
+  getSpeed() {
+    return this.speed;
   }
 
   /**

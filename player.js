@@ -1,6 +1,5 @@
 class Player extends DOMObject {
   points = 0;
-  speedPixels = 100;
   element;
 
   constructor(name, domId, height, width) {
@@ -37,7 +36,7 @@ class Player extends DOMObject {
   }
 
   /**
-   * Moves player with index up an MOVE_PIXEL_COUNT amount of pixels
+   * Moves player with index up an this.getSpeed() amount of pixels
    * @param {number} index player index: 0 for player 1 and index 1 for player 2
    * @returns
    */
@@ -49,13 +48,13 @@ class Player extends DOMObject {
       return;
     }
 
-    if (currentPosition - MOVE_PIXEL_COUNT <= 0) {
+    if (currentPosition - this.getSpeed() <= 0) {
       playerBrick.style.top = 0 + "px";
       return;
     }
     // - because in the HTML coordinate system + is downwards and - is upwards
     requestAnimationFrame(() => {
-      playerBrick.style.top = currentPosition - MOVE_PIXEL_COUNT + "px";
+      playerBrick.style.top = currentPosition - this.getSpeed() + "px";
     });
   }
 
@@ -70,7 +69,7 @@ class Player extends DOMObject {
     const gameCanvas = playerBrick.parentElement; // Assuming the gameCanvas is the direct parent
 
     if (
-      currentPosition + playerBrick.clientHeight + MOVE_PIXEL_COUNT >
+      currentPosition + playerBrick.clientHeight + this.getSpeed() >
       gameCanvas.clientHeight
     ) {
       playerBrick.style.top =
@@ -79,7 +78,7 @@ class Player extends DOMObject {
     }
     // + because in the HTML coordinate system + is downwards and - is upwards
     requestAnimationFrame(() => {
-      playerBrick.style.top = currentPosition + MOVE_PIXEL_COUNT + "px";
+      playerBrick.style.top = currentPosition + this.getSpeed() + "px";
     });
   }
 }
