@@ -107,6 +107,12 @@ window.addEventListener("keydown", function (event) {
     case "ArrowUp":
       player2.moveUp(1);
       break;
+    case "+":
+      increaseSpeed();
+      break;
+    case "-":
+      decreaseSpeed();
+      break;
     default:
       break;
   }
