@@ -37,9 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("ball-speed").innerHTML = BALL_MOVE_PIXEL_COUNT_L_R;
   document.getElementById("player-speed").innerHTML = player1.getSpeed();
 
-  document
-    .getElementById("gameCanvas")
-    .addEventListener("mousemove", onMouseMovement);
+  // document
+  //   .getElementById("gameCanvas")
+  //   .addEventListener("mousemove", onMouseMovement);
 });
 
 /**
