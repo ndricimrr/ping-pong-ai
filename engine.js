@@ -36,6 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("p2-name").innerHTML = player2.getName();
   document.getElementById("ball-speed").innerHTML = BALL_MOVE_PIXEL_COUNT_L_R;
   document.getElementById("player-speed").innerHTML = player1.getSpeed();
+
+  document
+    .getElementById("gameCanvas")
+    .addEventListener("mousemove", onMouseMovement);
 });
 
 /**
@@ -117,6 +121,17 @@ window.addEventListener("keydown", function (event) {
       break;
   }
 });
+
+function onMouseMovement(event) {
+  // Access mouse coordinates from the event object
+  const mouseX = event.clientX;
+  const mouseY = event.clientY;
+  requestAnimationFrame(() => {
+    player2.getDomElement().style.top = event.clientY + "px";
+  });
+  // Log the coordinates (you can replace this with your custom logic)
+  console.log("Mouse Y:", mouseY);
+}
 
 function increaseSpeed() {
   if (BALL_MOVE_PIXEL_COUNT_U_D < 400 && BALL_MOVE_PIXEL_COUNT_L_R < 400) {
