@@ -9,7 +9,7 @@ class Player extends DOMObject {
     this.height = height;
     this.width = width;
     this.element = document.getElementById(domId);
-    this.speed = 150;
+    this.speed = 140;
   }
 
   /**
