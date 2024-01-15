@@ -79,9 +79,7 @@ class Ball extends DOMObject {
         player1.style.backgroundColor = "black";
       }
     }
-
     ball.style.top = currentPositionTop - BALL_MOVE_PIXEL_COUNT_U_D + "px";
-
     requestAnimationFrame(this.moveBallUp.bind(this));
   }
 
