@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("p2-name").innerHTML = player2.getName();
   document.getElementById("ball-speed").innerHTML = BALL_MOVE_PIXEL_COUNT_L_R;
   document.getElementById("player-speed").innerHTML = player1.getSpeed();
-
   // document
   //   .getElementById("gameCanvas")
   //   .addEventListener("mousemove", onMouseMovement);
@@ -61,7 +60,6 @@ window["stopGame"] = () => {
  */
 function endGame() {
   shouldFreezeBall = true;
-
   const p1_points_field = document.getElementById("p1-points");
   const p2_points_field = document.getElementById("p2-points");
 
