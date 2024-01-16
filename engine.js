@@ -36,6 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("p2-name").innerHTML = player2.getName();
   document.getElementById("ball-speed").innerHTML = BALL_MOVE_PIXEL_COUNT_L_R;
   document.getElementById("player-speed").innerHTML = player1.getSpeed();
+  document.getElementById("level-number").innerHTML = currentLevel + 1;
+
   // document
   //   .getElementById("gameCanvas")
   //   .addEventListener("mousemove", onMouseMovement);
@@ -85,6 +87,7 @@ function endGame() {
   ball.getDomElement().style.left = 50 + "%";
   ball.setSpeed(levels[currentLevel].ballSpeed);
   document.getElementById("ball-speed").innerHTML = ball.getSpeed();
+  document.getElementById("level-number").innerHTML = currentLevel + 1;
   return;
 }
 
