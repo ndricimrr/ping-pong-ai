@@ -31,7 +31,7 @@ function dispatchPong(data) {
 }
 
 dispatchPing({ message: "Ping" });
-dispatchPong({ message: "Pong" });
+dispatchPong({ message: "Pongg" });
 
 // TODO: Later on Consider Ping Pong between Iframes. With Post Messages.
 // TODO: Later on Consider throwing a ball in a grid of Iframes, and it bounces as if it were in a full large rectangle/circle using postMessage API if possible (use canvas draw instead)
