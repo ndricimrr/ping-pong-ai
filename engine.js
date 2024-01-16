@@ -67,11 +67,15 @@ function endGame() {
     alert(player1.getName() + " WON. Next Level speed increases");
     p1_points = 0;
     p2_points = 0;
+    currentLevel = 0;
   } else if (p2_points > p1_points && p2_points >= 5) {
     alert(player2.getName() + " WON. Next Level speed increases");
     p1_points = 0;
     p2_points = 0;
+    currentLevel = 0;
   } else {
+    currentLevel++;
+
     alert("GAME OVER. Click OK to Restart");
   }
   p1_points_field.innerHTML = p1_points;
@@ -79,13 +83,8 @@ function endGame() {
 
   ball.getDomElement().style.top = 50 + "%";
   ball.getDomElement().style.left = 50 + "%";
-
   ball.setSpeed(levels[currentLevel].ballSpeed);
-
-  currentLevel++;
-
   document.getElementById("ball-speed").innerHTML = ball.getSpeed();
-
   return;
 }
 
